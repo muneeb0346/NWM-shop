@@ -1,0 +1,19 @@
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    overflow: hidden;
+}
+
+.collapsed {
+    width: 100%;
+}
+
+.icon {
+    flex-shrink: 0;
+}
+
+.text {
+    white-space: nowrap;
+}

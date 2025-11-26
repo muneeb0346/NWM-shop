@@ -1,7 +1,7 @@
-export default function OverviewDashboard() {
+export default function DashboardPage() {
     return (
         <section>
-            <h1>Overview Dashboard</h1>
+            <h1>Dashboard Page</h1>
         </section>
     );
 }

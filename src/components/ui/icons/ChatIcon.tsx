@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './Icon.module.css';
 
 interface ChatIconProps {
     iconColor?: string;
@@ -32,6 +33,7 @@ export default function ChatIcon({
                 height="44"
                 rx="22"
                 fill={bgColor}
+                className={styles.transition}
             />
             <path
                 fillRule="evenodd"
@@ -41,6 +43,7 @@ export default function ChatIcon({
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                className={styles.transition}
             />
             <path
                 d="M17 31H27"
@@ -48,6 +51,7 @@ export default function ChatIcon({
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                className={styles.transition}
             />
             <path
                 d="M22.177 19.323C22.275 19.421 22.275 19.579 22.177 19.677C22.079 19.775 21.921 19.775 21.823 19.677C21.725 19.579 21.725 19.421 21.823 19.323C21.921 19.225 22.079 19.226 22.177 19.323"
@@ -55,6 +59,7 @@ export default function ChatIcon({
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                className={styles.transition}
             />
             <path
                 d="M26.177 19.323C26.275 19.421 26.275 19.579 26.177 19.677C26.079 19.775 25.921 19.775 25.823 19.677C25.725 19.579 25.725 19.421 25.823 19.323C25.921 19.225 26.079 19.226 26.177 19.323"
@@ -62,6 +67,7 @@ export default function ChatIcon({
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                className={styles.transition}
             />
             <path
                 d="M18.177 19.323C18.275 19.421 18.275 19.579 18.177 19.677C18.079 19.775 17.921 19.775 17.823 19.677C17.725 19.579 17.725 19.421 17.823 19.323C17.921 19.225 18.079 19.226 18.177 19.323"
@@ -69,6 +75,7 @@ export default function ChatIcon({
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                className={styles.transition}
             />
         </svg>
     );

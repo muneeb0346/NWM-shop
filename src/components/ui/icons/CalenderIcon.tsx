@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './Icon.module.css';
 
 interface CalenderIconProps {
     iconColor?: string;
@@ -32,6 +33,7 @@ export default function CalenderIcon({
                 height="44"
                 rx="22"
                 fill={bgColor}
+                className={styles.transition}
             />
             <path
                 d="M26 12V16"
@@ -39,6 +41,7 @@ export default function CalenderIcon({
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                className={styles.transition}
             />
             <path
                 d="M18 12V16"
@@ -46,6 +49,7 @@ export default function CalenderIcon({
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                className={styles.transition}
             />
             <path
                 d="M13 19H31"
@@ -53,6 +57,7 @@ export default function CalenderIcon({
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                className={styles.transition}
             />
             <path
                 fillRule="evenodd"
@@ -62,6 +67,7 @@ export default function CalenderIcon({
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                className={styles.transition}
             />
             <path
                 d="M19 19V31"
@@ -69,6 +75,7 @@ export default function CalenderIcon({
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                className={styles.transition}
             />
             <path
                 d="M25 19V31"
@@ -76,6 +83,7 @@ export default function CalenderIcon({
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                className={styles.transition}
             />
             <path
                 d="M13 25H31"
@@ -83,6 +91,7 @@ export default function CalenderIcon({
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                className={styles.transition}
             />
         </svg>
     );

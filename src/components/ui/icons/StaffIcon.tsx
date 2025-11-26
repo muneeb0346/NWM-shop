@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './Icon.module.css';
 
 interface StaffIconProps {
     iconColor?: string;
@@ -32,6 +33,7 @@ export default function StaffIcon({
                 height="44"
                 rx="22"
                 fill={bgColor}
+                className={styles.transition}
             />
             <circle
                 cx="16.998"
@@ -41,6 +43,7 @@ export default function StaffIcon({
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                className={styles.transition}
             />
             <path
                 fillRule="evenodd"
@@ -50,6 +53,7 @@ export default function StaffIcon({
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                className={styles.transition}
             />
             <path
                 d="M25.0014 12.9962V18.4985"
@@ -57,6 +61,7 @@ export default function StaffIcon({
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                className={styles.transition}
             />
             <path
                 d="M28.0026 12.9962V18.4985"
@@ -64,6 +69,7 @@ export default function StaffIcon({
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                className={styles.transition}
             />
             <path
                 d="M31.0039 12.9962V18.4985"
@@ -71,6 +77,7 @@ export default function StaffIcon({
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                className={styles.transition}
             />
         </svg>
     );
