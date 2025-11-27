@@ -9,12 +9,14 @@
     --text-primary-50: rgba(0, 0, 0, 0.5);
     --text-success: #35B97E;
     --text-success-bold: #2CC974;
+    --icon-success-bold: #2CC974;
     --text-sheen: #888888;
     --text-secondary: #888888;
     --text-brand: #FF5C00;
     --bg-primary: #FF5C00;
     --primary-500: #FF5C00;
     --bg-primary-normal: #F46425;
+    --bg-primary-normal-40: rgba(244, 100, 37, 0.4);
     --bg-pending-bold: #F5B40B;
     --icon-primary-bold: #F46425;
     --text-primary-bold: #F46425;
@@ -40,11 +42,14 @@
     --bg-warning-pale: #FEF2F2;
     --primary-1002: #FFD1B8;
     --red-50: #FDECEC;
-    --linear-color: linear-gradient(240deg, var(--bg-primary-normal) 17%, var(--bg-pending-bold) 100%);
-    --linear-white: linear-gradient(280deg, #FFFFFF 0%, #E5E5E5 76%);
+    --linear-color: linear-gradient(230.09deg, var(--bg-primary-normal) 18.27%, var(--bg-pending-bold) 98.68%);
+    --linear-white: linear-gradient(165.26deg, var(--bg-white) 10.41%, #E6E6E6 71.1%);
+    --shadow-1: 0px 12px 20px var(--bg-primary-normal-40);
     --sidebar-width: 92px;
     --sidebar-expanded-width: 320px;
     --li-header-height: 80px;
+    --page-padding: 20px;
+    --page-gap: 20px;
     --focus-outline: 2px solid var(--bg-primary-normal);
     --focus-outline-offset: 2px;
     --transition-1: 0.3s ease-out;
@@ -59,6 +64,7 @@
 }
 
 body {
+    height: auto;
     font-family: var(--font-urbanist);
     background-color: var(--neutral-100);
     font-size: 16px;
@@ -68,7 +74,7 @@ body {
 }
 
 .overlay-background {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: var(--sidebar-width);
@@ -98,6 +104,12 @@ body {
     line-height: 120%;
 }
 
+.head-20-600-130 {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 130%;
+}
+
 .text-18-500-130 {
     font-weight: 500;
     font-size: 18px;
@@ -122,6 +134,12 @@ body {
     line-height: 120%;
 }
 
+.text-14-500-150 {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 150%;
+}
+
 .text-14-500-136 {
     font-weight: 500;
     font-size: 14px;
@@ -132,6 +150,12 @@ body {
     font-weight: 400;
     font-size: 14px;
     line-height: 130%;
+}
+
+.text-12-500-140 {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 140%;
 }
 
 .text-12-400-133 {

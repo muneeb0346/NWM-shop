@@ -3,7 +3,6 @@ import styles from "./Icon.module.css";
 
 interface TrendDownwardsIconProps {
     iconColor?: string;
-    bgColor?: string;
     width?: number | string;
     height?: number | string;
     className?: string;
@@ -11,8 +10,7 @@ interface TrendDownwardsIconProps {
 }
 
 export default function TrendDownwardsIcon({
-    iconColor = "var(--text-primary)",
-    bgColor = "transparent",
+    iconColor = "var(--icon-warning-bold)",
     width = 16,
     height = 16,
     className,
@@ -28,15 +26,8 @@ export default function TrendDownwardsIcon({
             className={className}
             style={style}
         >
-            <rect
-                width="16"
-                height="16"
-                rx="4"
-                fill={bgColor}
-                className={styles.transition}
-            />
             <path
-                d="M0.75 0.75L5.25 5.25L8.10745 2.39255C9.46443 3.42772 10.5021 4.90332 10.978 6.67942L11.4956 8.61127M11.4956 8.61127L13.6169 4.93704M11.4956 8.61127L7.82136 6.48995"
+                d="M1.5 4L6 8.5L8.85745 5.64255C10.2144 6.67772 11.2521 8.15332 11.728 9.92942L12.2456 11.8613M12.2456 11.8613L14.3669 8.18704M12.2456 11.8613L8.57136 9.73995"
                 stroke={iconColor}
                 strokeWidth="1.5"
                 strokeLinecap="round"

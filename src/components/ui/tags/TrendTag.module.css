@@ -1,0 +1,26 @@
+.trend-tag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 4px;
+    gap: 4px;
+    background: var(--bg-success-pale);
+    color: var(--text-success-bold);
+    border-radius: 100px;
+    transition: color var(--transition-1);
+}
+
+.trend-text {
+    color: var(--text-sheen);
+}
+
+.downwards {
+    background: var(--bg-warning-pale);
+    color: var(--text-warning-bold);
+}
+
+.hovered {
+    background: var(--linear-white);
+    border-radius: 100px;
+    color: var(--text-primary-bold);
+}

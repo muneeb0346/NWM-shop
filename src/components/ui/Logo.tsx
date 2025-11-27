@@ -21,6 +21,7 @@ export default function Logo({ className }: LogoProps) {
                     alt="Needle Works Management"
                     width={96}
                     height={35}
+                    preload
                     className={styles["logo-text"]}
                 />
             )}

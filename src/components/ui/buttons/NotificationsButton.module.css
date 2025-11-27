@@ -99,7 +99,8 @@
     right: 8px;
 }
 
-.message, .timeago {
+.message,
+.timeago {
     color: var(--text-secondary);
 }
 
