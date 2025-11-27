@@ -4,15 +4,19 @@ import LogoutIcon from "@/components/ui/icons/LogoutIcon";
 import styles from "./LogoutButton.module.css";
 import { useSidebar } from "@contexts/SideBarContext";
 
-export default function LogoutButton() {
+interface LogoutButtonProps {
+    className?: string;
+}
+
+export default function LogoutButton({ className }: LogoutButtonProps) {
     const { isOpen } = useSidebar();
 
     return (
         <button
-            className={styles.button}
+            className={`${styles.button} ${className}`}
             title={!isOpen ? "Logout" : ""}
         >
-            <LogoutIcon className={styles.icon}/>
+            <LogoutIcon className={styles.icon} />
             {isOpen && (
                 <span className="text-18-500-130">Logout</span>
             )}

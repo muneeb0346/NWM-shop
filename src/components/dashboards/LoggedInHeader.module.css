@@ -1,0 +1,17 @@
+.header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 24px;
+    gap: 16px;
+    height: 80px;
+    background: var(--bg-white);
+    z-index: 10;
+}
+
+.separator-vertical {
+    width: 1px;
+    height: 32px;
+    background-color: var(--stroke-pale);
+    margin: 0 8px;
+}

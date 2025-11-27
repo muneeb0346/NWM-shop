@@ -1,6 +1,8 @@
 import Sidebar from "@components/dashboards/Sidebar";
+import LoggedInHeader from "@/components/dashboards/LoggedInHeader";
 import styles from "./layout.module.css";
 import { SidebarProvider } from "@/contexts/SideBarContext";
+import { NotificationsProvider } from "@/contexts/NotificationsContext";
 
 export default function LoggedInLayout({
     children,
@@ -9,12 +11,17 @@ export default function LoggedInLayout({
 }>) {
     return (
         <SidebarProvider>
-            <div className={styles.page}>
-                <Sidebar />
-                <main>
-                    {children}
-                </main>
-            </div>
+            <NotificationsProvider>
+                <div className={styles.page}>
+                    <Sidebar />
+                    <div className={styles.content}>
+                        <LoggedInHeader />
+                        <main className={styles.main}>
+                            {children}
+                        </main>
+                    </div>
+                </div>
+            </NotificationsProvider>
         </SidebarProvider>
     );
 }

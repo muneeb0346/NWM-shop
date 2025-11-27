@@ -23,12 +23,13 @@ export default function Sidebar() {
     return (
         <div className={`overlay-background ${isOpen ? 'active' : ''}`}>
             <aside
+                aria-label="Sidebar"
                 className={`${styles.sidebar} ${isOpen ? styles.active : ''}`}
                 onMouseEnter={() => setIsOpen(true)}
                 onMouseLeave={() => setIsOpen(false)}
             >
-                <nav className={styles.nav}>
-                    <Logo />
+                <nav className={styles.nav} aria-label="Primary">
+                    <Logo className={styles.logo} />
                     <div className={styles["gap-16px"]}></div>
                     <ul className={styles.ul}>
                         <li className={styles.li}>
@@ -68,8 +69,7 @@ export default function Sidebar() {
                             <SideBarButton href="/help" icon={HelpIcon} text="Help & Support" />
                         </li>
                     </ul>
-                    <div className={styles["margin-auto"]}></div>
-                    <LogoutButton />
+                    <LogoutButton className={styles["margin-auto"]} />
                 </nav>
             </aside>
         </div>

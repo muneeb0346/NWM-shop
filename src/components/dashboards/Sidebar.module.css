@@ -23,6 +23,10 @@
     scrollbar-width: none;
 }
 
+.logo {
+    transform: translateX(-2px);
+}
+
 .gap-16px {
     height: 16px;
     width: 100%;
