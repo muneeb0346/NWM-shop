@@ -1,8 +1,9 @@
+import React from "react";
 import Sidebar from "@components/dashboards/Sidebar";
-import LoggedInHeader from "@/components/dashboards/LoggedInHeader";
+import LoggedInHeader from "@components/dashboards/LoggedInHeader";
 import styles from "./layout.module.css";
-import { SidebarProvider } from "@/contexts/SideBarContext";
-import { NotificationsProvider } from "@/contexts/NotificationsContext";
+import { SidebarProvider } from "@contexts/SideBarContext";
+import { NotificationsProvider } from "@contexts/NotificationsContext";
 
 export default function LoggedInLayout({
     children,

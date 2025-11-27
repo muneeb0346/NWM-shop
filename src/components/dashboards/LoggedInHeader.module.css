@@ -4,9 +4,13 @@
     align-items: center;
     padding-right: 24px;
     gap: 16px;
-    height: 80px;
+    height: var(--li-header-height);
     background: var(--bg-white);
     z-index: 10;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
 }
 
 .separator-vertical {

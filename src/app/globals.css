@@ -13,6 +13,7 @@
     --text-secondary: #888888;
     --text-brand: #FF5C00;
     --bg-primary: #FF5C00;
+    --primary-500: #FF5C00;
     --bg-primary-normal: #F46425;
     --bg-pending-bold: #F5B40B;
     --icon-primary-bold: #F46425;
@@ -43,9 +44,12 @@
     --linear-white: linear-gradient(280deg, #FFFFFF 0%, #E5E5E5 76%);
     --sidebar-width: 92px;
     --sidebar-expanded-width: 320px;
+    --li-header-height: 80px;
     --focus-outline: 2px solid var(--bg-primary-normal);
     --focus-outline-offset: 2px;
     --transition-1: 0.3s ease-out;
+    --animation-fade-in: fadeIn var(--transition-1);
+    --animation-fade-out: fadeOut var(--transition-1);
 }
 
 *:focus-visible {
@@ -60,7 +64,7 @@ body {
     font-size: 16px;
     line-height: 130%;
     font-weight: 500;
-    color: #121212;
+    color: var(--text-primary);
 }
 
 .overlay-background {
@@ -84,9 +88,16 @@ body {
     width: 100%;
     height: 1px;
     background: var(--stroke-pale);
+    flex: none;
 }
 
 /* Typography */
+.head-40-600-120 {
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 120%;
+}
+
 .text-18-500-130 {
     font-weight: 500;
     font-size: 18px;
@@ -103,6 +114,12 @@ body {
     font-weight: 500;
     font-size: 16px;
     line-height: 131%;
+}
+
+.text-14-600-120 {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 120%;
 }
 
 .text-14-500-136 {
@@ -127,4 +144,25 @@ body {
     font-weight: 400;
     font-size: 10px;
     line-height: 120%;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
 }

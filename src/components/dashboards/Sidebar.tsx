@@ -1,6 +1,6 @@
 "use client";
 
-import { useSidebar } from "@/contexts/SideBarContext";
+import { useSidebar } from "@contexts/SideBarContext";
 import styles from "./Sidebar.module.css"
 import Logo from "@components/ui/Logo";
 import LogoutButton from "@components/ui/buttons/LogoutButton";
@@ -8,7 +8,7 @@ import SideBarButton from "@components/ui/buttons/SideBarButtons";
 import DashboardIcon from "@components/ui/icons/DashboardIcon";
 import ClientsIcon from "@components/ui/icons/ClientsIcon";
 import ChatIcon from "@components/ui/icons/ChatIcon";
-import BookingsIcon from "@/components/ui/icons/BookingsIcon";
+import BookingsIcon from "@components/ui/icons/BookingsIcon";
 import CalenderIcon from "@components/ui/icons/CalenderIcon";
 import ShopIcon from "@components/ui/icons/ShopIcon";
 import StaffIcon from "@components/ui/icons/StaffIcon";
@@ -21,10 +21,10 @@ export default function Sidebar() {
     const { isOpen, setIsOpen } = useSidebar();
 
     return (
-        <div className={`overlay-background ${isOpen ? 'active' : ''}`}>
+        <div className={`overlay-background ${isOpen ? "active" : ""}`}>
             <aside
                 aria-label="Sidebar"
-                className={`${styles.sidebar} ${isOpen ? styles.active : ''}`}
+                className={`${styles.sidebar} ${isOpen ? styles.active : ""}`}
                 onMouseEnter={() => setIsOpen(true)}
                 onMouseLeave={() => setIsOpen(false)}
             >

@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./Icon.module.css"
+import styles from "./Icon.module.css";
 
-interface HelpIconProps {
+interface TrendUpwardsIconProps {
     iconColor?: string;
     bgColor?: string;
     width?: number | string;
@@ -10,33 +10,33 @@ interface HelpIconProps {
     style?: React.CSSProperties;
 }
 
-export default function HelpIcon({
+export default function TrendUpwardsIcon({
     iconColor = "var(--text-primary)",
     bgColor = "transparent",
-    width = 44,
-    height = 44,
+    width = 16,
+    height = 16,
     className,
     style
-}: HelpIconProps) {
+}: TrendUpwardsIconProps) {
     return (
         <svg
             width={width}
             height={height}
-            viewBox="0 0 44 44"
+            viewBox="0 0 16 16"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             className={className}
             style={style}
         >
             <rect
-                width="44"
-                height="44"
-                rx="22"
+                width="16"
+                height="16"
+                rx="4"
                 fill={bgColor}
                 className={styles.transition}
             />
             <path
-                d="M19.8789 17.5188C21.0505 16.4937 22.95 16.4937 24.1215 17.5188C25.2931 18.544 25.2931 20.206 24.1215 21.2312C23.9176 21.4096 23.6917 21.5569 23.4513 21.6733C22.7056 22.0341 22.0002 22.6716 22.0002 23.5V24.25M31 22C31 26.9706 26.9706 31 22 31C17.0294 31 13 26.9706 13 22C13 17.0294 17.0294 13 22 13C26.9706 13 31 17.0294 31 22ZM22 27.25H22.0075V27.2575H22V27.25Z"
+                d="M1.5 12L6 7.49999L8.87095 10.3709C9.67341 8.79207 11.0028 7.46819 12.7468 6.69169L14.5739 5.87821M14.5739 5.87821L10.6131 4.35779M14.5739 5.87821L13.0535 9.83906"
                 stroke={iconColor}
                 strokeWidth="1.5"
                 strokeLinecap="round"

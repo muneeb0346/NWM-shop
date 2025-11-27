@@ -1,6 +1,6 @@
 "use client";
 
-import LogoutIcon from "@/components/ui/icons/LogoutIcon";
+import LogoutIcon from "@components/ui/icons/LogoutIcon";
 import styles from "./LogoutButton.module.css";
 import { useSidebar } from "@contexts/SideBarContext";
 

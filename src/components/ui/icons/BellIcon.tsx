@@ -1,5 +1,5 @@
-import React from 'react';
-import styles from './Icon.module.css';
+import React from "react";
+import styles from "./Icon.module.css";
 
 interface BellIconProps {
     color?: string;

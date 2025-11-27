@@ -1,10 +1,10 @@
 "use client";
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useSidebar } from '@/contexts/SideBarContext';
-import styles from './SideBarButtons.module.css';
-import React from 'react';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useSidebar } from "@contexts/SideBarContext";
+import styles from "./SideBarButtons.module.css";
+import React from "react";
 
 interface SideBarButtonProps {
     href: string;
@@ -38,7 +38,7 @@ export default function SideBarButton({
     return (
         <Link
             href={href}
-            className={`${styles.button} ${!isOpen ? styles.collapsed : ''}`}
+            className={`${styles.button} ${!isOpen ? styles.collapsed : ""}`}
         >
             <Icon
                 iconColor={isActive ? activeIconColor : iconColor}

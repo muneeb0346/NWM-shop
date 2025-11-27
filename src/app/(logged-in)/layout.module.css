@@ -8,8 +8,10 @@
 .content {
     padding-left: var(--sidebar-width);
     width: 100%;
+    position: relative;
 }
 
 .main {
     width: 100%;
+    padding-top: var(--li-header-height);
 }

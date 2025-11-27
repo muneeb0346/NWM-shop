@@ -1,42 +1,33 @@
 import React from "react";
 import styles from "./Icon.module.css";
 
-interface CalenderIconProps {
+interface CircledHashTagIconProps {
     iconColor?: string;
-    bgColor?: string;
     width?: number | string;
     height?: number | string;
     className?: string;
     style?: React.CSSProperties;
 }
 
-export default function CalenderIcon({
+export default function CircledHashTagIcon({
     iconColor = "var(--text-primary)",
-    bgColor = "transparent",
-    width = 44,
-    height = 44,
+    width = 24,
+    height = 24,
     className,
     style
-}: CalenderIconProps) {
+}: CircledHashTagIconProps) {
     return (
         <svg
             width={width}
             height={height}
-            viewBox="0 0 44 44"
+            viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             className={className}
             style={style}
         >
-            <rect
-                width="44"
-                height="44"
-                rx="22"
-                fill={bgColor}
-                className={styles.transition}
-            />
             <path
-                d="M26 12V16"
+                d="M9.69922 15.45L10.8492 8.55005"
                 stroke={iconColor}
                 strokeWidth="1.5"
                 strokeLinecap="round"
@@ -44,7 +35,7 @@ export default function CalenderIcon({
                 className={styles.transition}
             />
             <path
-                d="M18 12V16"
+                d="M13.1504 15.45L14.3004 8.55005"
                 stroke={iconColor}
                 strokeWidth="1.5"
                 strokeLinecap="round"
@@ -52,7 +43,7 @@ export default function CalenderIcon({
                 className={styles.transition}
             />
             <path
-                d="M13 19H31"
+                d="M15.8008 10.3H8.80078"
                 stroke={iconColor}
                 strokeWidth="1.5"
                 strokeLinecap="round"
@@ -60,9 +51,7 @@ export default function CalenderIcon({
                 className={styles.transition}
             />
             <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M29 14H15C13.895 14 13 14.895 13 16V29C13 30.105 13.895 31 15 31H29C30.105 31 31 30.105 31 29V16C31 14.895 30.105 14 29 14Z"
+                d="M15.1992 13.7H8.19922"
                 stroke={iconColor}
                 strokeWidth="1.5"
                 strokeLinecap="round"
@@ -70,23 +59,7 @@ export default function CalenderIcon({
                 className={styles.transition}
             />
             <path
-                d="M19 19V31"
-                stroke={iconColor}
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className={styles.transition}
-            />
-            <path
-                d="M25 19V31"
-                stroke={iconColor}
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className={styles.transition}
-            />
-            <path
-                d="M13 25H31"
+                d="M18.364 5.63604C21.8787 9.15076 21.8787 14.8492 18.364 18.3639C14.8493 21.8787 9.1508 21.8787 5.6361 18.3639C2.12138 14.8492 2.12138 9.15074 5.6361 5.63604C9.15082 2.12132 14.8493 2.12132 18.364 5.63604"
                 stroke={iconColor}
                 strokeWidth="1.5"
                 strokeLinecap="round"

@@ -32,6 +32,14 @@
     position: absolute;
     top: 72px;
     right: -28px;
+    opacity: 0;
+    animation: var(--animation-fade-in);
+    animation-fill-mode: forwards;
+}
+
+.popup.closing {
+    animation: var(--animation-fade-out);
+    animation-fill-mode: forwards;
 }
 
 .header {
