@@ -13,7 +13,7 @@ import {
 } from "recharts";
 import Dropdown from "@components/ui/dropdowns/Dropdown";
 import ChartTooltip from "@components/ui/tooltips/ChartTooltip";
-import styles from "./TopArtistsChart.module.css";
+import styles from "./TopArtistsBarChart.module.css";
 
 const mockData = {
     "December 2024": [

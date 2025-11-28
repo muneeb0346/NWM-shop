@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./BookingInsightsChart.module.css";
+import styles from "./BookingInsightsLineChart.module.css";
 import Dropdown from "@components/ui/dropdowns/Dropdown";
 import ChartTooltip from "@components/ui/tooltips/ChartTooltip";
 import { useState } from "react";
