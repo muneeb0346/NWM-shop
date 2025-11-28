@@ -11,6 +11,7 @@ import CircledHashTagIcon from "@components/ui/icons/CircledHashTagIcon";
 import WalletIcon from "@components/ui/icons/WalletIcon";
 import CircledGivingHandIcon from "@components/ui/icons/CircledGivingHandIcon";
 import CircledSparkIcon from "@components/ui/icons/CircledSparkIcon";
+import BookingInsightsChart from "@/components/charts/BookingInsightsChart";
 
 export default function DashboardPage() {
     return (
@@ -35,6 +36,7 @@ export default function DashboardPage() {
                         <DashboardCard Icon={CircledGivingHandIcon} heading="Avg Booking Value" valueText="$1,254" trendDirection="downwards" trendText="3.51%" trendContextText="last month" />
                         <DashboardCard Icon={CircledSparkIcon} heading="No Show Rate" valueText="5%" trendText="9.97%" trendContextText="last month" />
                     </div>
+                    <BookingInsightsChart />
                 </div>
                 <div className={styles["content-right"]}>
                 </div>

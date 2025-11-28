@@ -45,6 +45,7 @@
     --linear-color: linear-gradient(230.09deg, var(--bg-primary-normal) 18.27%, var(--bg-pending-bold) 98.68%);
     --linear-white: linear-gradient(165.26deg, var(--bg-white) 10.41%, #E6E6E6 71.1%);
     --shadow-1: 0px 12px 20px var(--bg-primary-normal-40);
+    --shadow-2: 0px 4px 4px rgba(172, 172, 172, 0.15);
     --sidebar-width: 92px;
     --sidebar-expanded-width: 320px;
     --li-header-height: 80px;
@@ -150,6 +151,18 @@ body {
     font-weight: 400;
     font-size: 14px;
     line-height: 130%;
+}
+
+.text-12-600-140 {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 140%;
+}
+
+.text-12-600-120 {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 120%;
 }
 
 .text-12-500-140 {

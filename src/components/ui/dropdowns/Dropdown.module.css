@@ -1,0 +1,28 @@
+.wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.select {
+    appearance: none;
+    background: var(--bg-white);
+    border: 1px solid var(--stroke-pale);
+    border-radius: 12px;
+    padding: 11px 36px 11px 12px;
+    color: var(--text-primary);
+    cursor: pointer;
+    outline: none;
+}
+
+.select:focus {
+    border-color: var(--bg-primary-normal);
+}
+
+.chevron {
+    position: absolute;
+    right: 12px;
+    pointer-events: none;
+    width: 16px;
+    aspect-ratio: 1 / 1;
+}
