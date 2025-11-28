@@ -111,8 +111,8 @@ export default function BookingInsightsChart() {
     })();
 
     return (
-        <div className={styles.card}>
-            <div className={styles.header}>
+        <div className="card">
+            <div className="card-header">
                 <h3 className="head-20-600-130">Booking Insights</h3>
                 <Dropdown
                     options={availableMonths}
@@ -147,7 +147,7 @@ export default function BookingInsightsChart() {
                         <YAxis
                             axisLine={false}
                             tickLine={false}
-                            tick={{ className: `text-12-500-140 ${styles["y-axis-tick"]}`, textAnchor: "start", dx: -26 }}
+                            tick={{ className: `text-12-500-140 ${styles["y-axis-tick"]}`, textAnchor: "start", dx: -22 }}
                             domain={[0, 35]}
                             ticks={[0, 5, 10, 15, 20, 25, 30, 35]}
                             tickMargin={0}

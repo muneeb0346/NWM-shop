@@ -2,6 +2,7 @@
 
 import PlusIcon from "@components/ui/icons/PlusIcon";
 import styles from "./page.module.css";
+import "@styles/DashboardStyles.css";
 import DashboardButton from "@components/ui/buttons/DahsboardButton";
 import ShareIcon from "@components/ui/icons/ShareIcon";
 import AddFriendIcon from "@components/ui/icons/AddFriendIcon";
@@ -11,7 +12,8 @@ import CircledHashTagIcon from "@components/ui/icons/CircledHashTagIcon";
 import WalletIcon from "@components/ui/icons/WalletIcon";
 import CircledGivingHandIcon from "@components/ui/icons/CircledGivingHandIcon";
 import CircledSparkIcon from "@components/ui/icons/CircledSparkIcon";
-import BookingInsightsChart from "@/components/charts/BookingInsightsChart";
+import BookingInsightsChart from "@components/charts/BookingInsightsChart";
+import TopArtistsChart from "@components/charts/TopArtistsChart";
 
 export default function DashboardPage() {
     return (
@@ -37,6 +39,7 @@ export default function DashboardPage() {
                         <DashboardCard Icon={CircledSparkIcon} heading="No Show Rate" valueText="5%" trendText="9.97%" trendContextText="last month" />
                     </div>
                     <BookingInsightsChart />
+                    <TopArtistsChart />
                 </div>
                 <div className={styles["content-right"]}>
                 </div>
