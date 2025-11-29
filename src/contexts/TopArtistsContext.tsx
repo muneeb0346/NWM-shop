@@ -62,7 +62,6 @@ export function TopArtistsProvider({ children }: { children: ReactNode }) {
     const availableMonths = Object.keys(mockData);
     const [dateRangeLabel, setDateRangeLabel] = useState(availableMonths[availableMonths.length - 1]);
     
-    // Initialize with last available month range
     const [initMonthName, initYearStr] = availableMonths[availableMonths.length - 1].split(" ");
     const initMonthIndex = [
         "January","February","March","April","May","June","July","August","September","October","November","December"
@@ -73,7 +72,6 @@ export function TopArtistsProvider({ children }: { children: ReactNode }) {
     const [startDate, setStartDate] = useState<Date | null>(initialStart);
     const [endDate, setEndDate] = useState<Date | null>(initialEnd);
     
-    // Aggregate artists across range: sum appointments per artist across all months in range
     function aggregateArtists(start: Date, end: Date): ArtistData[] {
         const totals = new Map<string, number>();
         const cursor = new Date(start);
@@ -93,7 +91,6 @@ export function TopArtistsProvider({ children }: { children: ReactNode }) {
     }
     const chartData = startDate && endDate ? aggregateArtists(startDate, endDate) : [];
 
-    // Allow selection from first data point to today
     const minDate = (() => {
         const firstMonth = availableMonths[0];
         const [monthName, yearStr] = firstMonth.split(" ");
@@ -103,7 +100,7 @@ export function TopArtistsProvider({ children }: { children: ReactNode }) {
         return new Date(parseInt(yearStr, 10), monthIndex, 1);
     })();
 
-    const maxDate = new Date(); // Today
+    const maxDate = new Date();
 
     const setSelectedRange = (startDateStr: string, endDateStr: string) => {
         const start = new Date(startDateStr.split("/").reverse().join("-"));

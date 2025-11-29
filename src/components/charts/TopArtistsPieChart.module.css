@@ -8,21 +8,9 @@
 
 .chart-wrapper {
     width: 100%;
-    flex: 1;
     min-height: 0;
     position: relative;
-}
-
-.empty-state {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: var(--text-secondary);
-    font-size: 14px;
-    font-weight: 500;
-    z-index: 1;
-    pointer-events: none;
+    flex: 1;
 }
 
 .pie-cell {
@@ -36,7 +24,6 @@
 
 .legend {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 0;

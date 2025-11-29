@@ -1,269 +1,269 @@
 .overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 999;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: var(--text-primary-50);
+	z-index: 999;
 }
 
 .modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 24px 20px;
-  gap: 20px;
-  width: 390px;
-  background: var(--bg-white);
-  border: 1px solid var(--stroke-pale);
-  border-radius: 20px;
-  z-index: 1000;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 24px 20px;
+	gap: 20px;
+	width: 390px;
+	background: var(--bg-white);
+	border: 1px solid var(--stroke-pale);
+	border-radius: 20px;
+	z-index: 1000;
 }
 
 .month {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-  gap: 20px;
-  height: 24px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	padding: 0;
+	gap: 20px;
+	height: 24px;
 }
 
 .navButton {
-  width: 24px;
-  height: 24px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+	width: 24px;
+	height: 24px;
+	border: none;
+	background: none;
+	cursor: pointer;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
 }
 
 .navButton:hover {
-  opacity: 0.8;
+	opacity: 0.8;
 }
 
 .monthYearContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 8px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 8px;
 }
 
 .monthDropdown {
-  min-width: 100px;
+	min-width: 100px;
 }
 
 .yearDropdown {
-  min-width: 70px;
+	min-width: 70px;
 }
 
 .daySection {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-  gap: 12px;
-  width: 350px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 0;
+	gap: 12px;
+	width: 350px;
 }
 
 .dayHeader {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0;
-  gap: 8px;
-  width: 350px;
-  height: 44px;
-  border-radius: 8px 8px 0 0;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0;
+	gap: 8px;
+	width: 350px;
+	height: 44px;
+	border-radius: 8px 8px 0 0;
 }
 
 .dayName {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 4px;
-  gap: 4px;
-  margin: 0 auto;
-  width: 44px;
-  height: 44px;
-  font-family: "Urbanist";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 130%;
-  text-align: center;
-  color: var(--text-primary);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 4px;
+	gap: 4px;
+	margin: 0 auto;
+	width: 44px;
+	height: 44px;
+	font-family: "Urbanist";
+	font-style: normal;
+	font-weight: 600;
+	font-size: 14px;
+	line-height: 130%;
+	text-align: center;
+	color: var(--text-primary);
 }
 
 .calendar {
-  display: grid;
-  grid-template-columns: repeat(7, 44px);
-  gap: 4px 8px;
-  width: 350px;
-  grid-auto-rows: 44px;
+	display: grid;
+	grid-template-columns: repeat(7, 44px);
+	gap: 4px 8px;
+	width: 350px;
+	grid-auto-rows: 44px;
 }
 
 .date {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 4px;
-  gap: 4px;
-  width: 44px;
-  height: 44px;
-  font-family: "Urbanist";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 120%;
-  text-align: center;
-  color: var(--text-primary);
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  border-radius: 12px;
-  transition: background 0.2s;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 4px;
+	gap: 4px;
+	width: 44px;
+	height: 44px;
+	font-family: "Urbanist";
+	font-style: normal;
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 120%;
+	text-align: center;
+	color: var(--text-primary);
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	border-radius: 12px;
+	transition: background-color var(--transition-1);
 }
 
 .date:hover {
-  background: var(--bg-primary-pale);
+	background: var(--bg-primary-pale);
 }
 
 .dateStart {
-  background: var(--bg-primary-normal);
-  border-radius: 12px;
-  color: var(--text-white);
+	background: var(--bg-primary-normal);
+	border-radius: 12px;
+	color: var(--text-white);
 }
+
 .dateEnd {
-  background: var(--bg-primary-normal);
-  border-radius: 999px;
-  color: var(--text-white);
+	background: var(--bg-primary-normal);
+	border-radius: 999px;
+	color: var(--text-white);
 }
+
 .dateMiddle {
-  background: var(--bg-primary-pale);
-  border-radius: 12px;
+	background: var(--bg-primary-pale);
+	border-radius: 12px;
 }
 
 .date:focus-visible,
 .dateStart:focus-visible,
 .dateEnd:focus-visible,
 .dateMiddle:focus-visible {
-  outline: 2px solid var(--bg-primary-normal);
-  outline-offset: 2px;
+	outline: 2px solid var(--bg-primary-normal);
+	outline-offset: 2px;
 }
 
 .date.otherMonth {
-  color: #D1D1D1;
-  cursor: default;
+	color: var(--text-primary-50);
+	cursor: default;
 }
 
 .date.otherMonth:hover {
-  background: transparent;
+	background: transparent;
 }
 
 .form {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  padding: 0;
-  gap: 20px;
-  width: 350px;
-  height: 78px;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	padding: 0;
+	gap: 20px;
+	width: 350px;
+	height: 78px;
 }
 
 .inputField {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0;
-  gap: 12px;
-  width: 165px;
-  height: 78px;
-  flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	padding: 0;
+	gap: 12px;
+	width: 165px;
+	height: 78px;
+	flex: 1;
 }
 
 .label {
-  width: 165px;
-  height: 18px;
-  font-family: "Urbanist";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 130%;
-  color: var(--text-primary);
+	width: 165px;
+	height: 18px;
+	font-family: "Urbanist";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 130%;
+	color: var(--text-primary);
 }
 
 .inputArea {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 14px 20px;
-  gap: 12px;
-  width: 165px;
-  height: 48px;
-  background: var(--bg-white);
-  border: 1px solid var(--stroke-pale);
-  border-radius: 12px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 14px 20px;
+	gap: 12px;
+	width: 165px;
+	height: 48px;
+	background: var(--bg-white);
+	border: 1px solid var(--stroke-pale);
+	border-radius: 12px;
 }
 
 .input {
-  width: 93px;
-  height: 18px;
-  font-family: "Urbanist";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 130%;
-  color: var(--text-primary);
-  border: none;
-  outline: none;
-  background: transparent;
-  flex: 1;
+	width: 93px;
+	height: 18px;
+	font-family: "Urbanist";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 130%;
+	color: var(--text-primary);
+	border: none;
+	outline: none;
+	background: transparent;
+	flex: 1;
 }
 
 .selectButton {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 12px 16px;
-  gap: 4px;
-  width: 350px;
-  height: 48px;
-  background: #FF5C00;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  font-family: "Urbanist";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 120%;
-  color: var(--text-white);
-  transition: opacity 0.2s;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	padding: 12px 16px;
+	gap: 4px;
+	width: 350px;
+	height: 48px;
+	background: var(--bg-primary-normal);
+	border-radius: 12px;
+	border: none;
+	cursor: pointer;
+	font-family: "Urbanist";
+	font-style: normal;
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 120%;
+	color: var(--text-white);
+	transition: opacity 0.2s;
 }
 
 .selectButton:hover {
-  opacity: 0.9;
+	opacity: 0.9;
 }
 
 .selectButton:active {
-  opacity: 0.8;
+	opacity: 0.8;
 }

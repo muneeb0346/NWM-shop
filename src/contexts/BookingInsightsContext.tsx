@@ -116,7 +116,6 @@ export function BookingInsightsProvider({ children }: { children: ReactNode }) {
     const availableMonths = Object.keys(mockData);
     const [dateRangeLabel, setDateRangeLabel] = useState(availableMonths[0]);
 
-    // Initialize with first available month as full month range
     const [initMonthName, initYearStr] = availableMonths[0].split(" ");
     const initMonthIndex = [
         "January","February","March","April","May","June","July","August","September","October","November","December"
@@ -128,7 +127,6 @@ export function BookingInsightsProvider({ children }: { children: ReactNode }) {
     const [startDate, setStartDate] = useState<Date | null>(initialStart);
     const [endDate, setEndDate] = useState<Date | null>(initialEnd);
 
-    // Generate data for selected range
     function generateRangeData(start: Date, end: Date, data: MonthData): DataPoint[] {
         const result: DataPoint[] = [];
         const current = new Date(start);
@@ -158,7 +156,6 @@ export function BookingInsightsProvider({ children }: { children: ReactNode }) {
 
     const currentData = startDate && endDate ? generateRangeData(startDate, endDate, mockData) : [];
 
-    // Allow selection from first data point to today
     const minDate = (() => {
         const firstMonth = availableMonths[0];
         const [monthName, yearStr] = firstMonth.split(" ");
@@ -168,7 +165,7 @@ export function BookingInsightsProvider({ children }: { children: ReactNode }) {
         return new Date(parseInt(yearStr, 10), monthIndex, 1);
     })();
 
-    const maxDate = new Date(); // Today
+    const maxDate = new Date();
 
     const setSelectedRange = (startDateStr: string, endDateStr: string) => {
         const start = new Date(startDateStr.split("/").reverse().join("-"));

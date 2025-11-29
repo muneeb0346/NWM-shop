@@ -15,6 +15,7 @@ import DateRangeButton from "@components/ui/buttons/DateRangeButton";
 import ChartTooltip from "@components/ui/tooltips/ChartTooltip";
 import { useTopArtists } from "@contexts/TopArtistsContext";
 import styles from "./TopArtistsBarChart.module.css";
+import DashBoardstyles from "@styles/DashboardStyles.module.css";
 
 const RoundedBar = (props: {
     fill?: string;
@@ -66,8 +67,8 @@ export default function TopArtistsBarChart() {
         : -1;
 
     return (
-        <div className="card">
-            <div className="card-header">
+        <div className={DashBoardstyles.card}>
+            <div className={DashBoardstyles["card-header"]}>
                 <h3 className="heading-h6-600">Top Artists</h3>
                 <DateRangeButton
                     placeholder={dateRangeLabel}
@@ -92,7 +93,7 @@ export default function TopArtistsBarChart() {
             </div>
             <div className={styles["chart-container"]}>
                 {chartData.length === 0 && (
-                    <div className={styles["empty-state"]}>
+                    <div className={DashBoardstyles["empty-state"]}>
                         No data to display
                     </div>
                 )}
@@ -111,13 +112,13 @@ export default function TopArtistsBarChart() {
                             dataKey="name"
                             axisLine={false}
                             tickLine={false}
-                            tick={{ className: `text-12-500-140 ${styles["axis-tick"]}` }}
+                            tick={{ className: `text-12-500-140 ${DashBoardstyles["axis-tick"]}` }}
                             tickMargin={10}
                         />
                         <YAxis
                             axisLine={false}
                             tickLine={false}
-                            tick={{ className: `text-12-500-140 ${styles["y-axis-tick"]}`, textAnchor: "start", dx: -22 }}
+                            tick={{ className: `text-12-500-140 ${DashBoardstyles["y-axis-tick"]}`, textAnchor: "start", dx: -22 }}
                             domain={[0, 50]}
                             ticks={[0, 10, 20, 30, 40, 50]}
                             tickMargin={0}

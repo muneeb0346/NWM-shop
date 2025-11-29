@@ -1,0 +1,33 @@
+.badge {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 999px;
+    flex: none;
+}
+
+.new {
+    background: #F4F4F4;
+    color: #6B6B6B;
+}
+
+.deposit-requested {
+    background: #F6FFDE;
+    color: #976C00;
+}
+
+.deposit-paid {
+    background: #F1FCF5;
+    color: #2CC974;
+}
+
+.scheduled {
+    background: #E0E7FF;
+    color: #6366F1;
+}
+
+.upcoming {
+    background: #EDE9FE;
+    color: #8B5CF6;
+}

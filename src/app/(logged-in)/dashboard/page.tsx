@@ -2,7 +2,6 @@
 
 import PlusIcon from "@components/ui/icons/PlusIcon";
 import styles from "./page.module.css";
-import "@styles/DashboardStyles.css";
 import DashboardButton from "@components/ui/buttons/DahsboardButton";
 import ShareIcon from "@components/ui/icons/ShareIcon";
 import AddFriendIcon from "@components/ui/icons/AddFriendIcon";
@@ -17,6 +16,7 @@ import TopArtistsBarChart from "@components/charts/TopArtistsBarChart";
 import TopArtistsPieChart from "@components/charts/TopArtistsPieChart";
 import { BookingInsightsProvider } from "@contexts/BookingInsightsContext";
 import { TopArtistsProvider } from "@contexts/TopArtistsContext";
+import NewBookingsFeed from "@components/dashboards/NewBookingsFeed";
 
 export default function DashboardPage() {
     return (
@@ -50,6 +50,7 @@ export default function DashboardPage() {
                     </TopArtistsProvider>
                 </div>
                 <div className={styles["content-right"]}>
+                    <NewBookingsFeed />
                 </div>
             </div>
         </section>

@@ -4,11 +4,10 @@ interface ChartTooltipProps {
     active?: boolean;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     payload?: any[];
-    label?: string;
     valueLabel?: string;
 }
 
-export default function ChartTooltip({ active, payload, label, valueLabel = "Value" }: ChartTooltipProps) {
+export default function ChartTooltip({ active, payload, valueLabel = "Value" }: ChartTooltipProps) {
     if (active && payload && payload.length) {
         return (
             <div className={styles.tooltip}>

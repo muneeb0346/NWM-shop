@@ -1,504 +1,461 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import styles from "./DateRangePickerModal.module.css";
 import DateIcon from "@components/ui/icons/DateIcon";
 import Dropdown from "@components/ui/dropdowns/Dropdown";
 
 interface DateRangePickerModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onSelect: (startDate: string, endDate: string) => void;
-  initialStartDate?: string;
-  initialEndDate?: string;
-  minDate?: Date;
-  maxDate?: Date;
+	isOpen: boolean;
+	onClose: () => void;
+	onSelect: (startDate: string, endDate: string) => void;
+	initialStartDate?: string;
+	initialEndDate?: string;
+	minDate?: Date;
+	maxDate?: Date;
 }
 
 export default function DateRangePickerModal({
-  isOpen,
-  onClose,
-  onSelect,
-  initialStartDate = "",
-  initialEndDate = "",
-  minDate,
-  maxDate,
+	isOpen,
+	onClose,
+	onSelect,
+	initialStartDate = "",
+	initialEndDate = "",
+	minDate,
+	maxDate,
 }: DateRangePickerModalProps) {
-  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
-  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
-  const [startDateObj, setStartDateObj] = useState<Date | null>(null);
-  const [endDateObj, setEndDateObj] = useState<Date | null>(null);
-  const [fromInput, setFromInput] = useState("");
-  const [toInput, setToInput] = useState("");
-  const [focusedDate, setFocusedDate] = useState<Date | null>(null);
-  const calendarRef = useRef<HTMLDivElement>(null);
+	const parseDateString = (str: string): Date | null => {
+		const parts = str.split("/");
+		if (parts.length !== 3) return null;
+		const [dd, mm, yyyy] = parts.map((p) => parseInt(p, 10));
+		if (!dd || !mm || !yyyy) return null;
+		return new Date(yyyy, mm - 1, dd);
+	};
+	const formatInputDate = (date: Date): string => {
+		const dd = String(date.getDate()).padStart(2, "0");
+		const mm = String(date.getMonth() + 1).padStart(2, "0");
+		const yyyy = date.getFullYear();
+		return `${dd}/${mm}/${yyyy}`;
+	};
 
-  const parseDateString = (str: string): Date | null => {
-    const parts = str.split("/");
-    if (parts.length !== 3) return null;
-    const [dd, mm, yyyy] = parts.map((p) => parseInt(p, 10));
-    if (!dd || !mm || !yyyy) return null;
-    return new Date(yyyy, mm - 1, dd);
-  };
-  const formatInputDate = (date: Date): string => {
-    const dd = String(date.getDate()).padStart(2, "0");
-    const mm = String(date.getMonth() + 1).padStart(2, "0");
-    const yyyy = date.getFullYear();
-    return `${dd}/${mm}/${yyyy}`;
-  };
+	const initStart = initialStartDate ? parseDateString(initialStartDate) : null;
+	const initEnd = initialEndDate ? parseDateString(initialEndDate) : null;
 
-  // Boundary dates - default to reasonable range if not provided
-  const earliestDate = minDate || new Date(2020, 0, 1);
-  const latestDate = maxDate || new Date();
+	const [currentMonth, setCurrentMonth] = useState(
+		initEnd ? initEnd.getMonth() : initStart ? initStart.getMonth() : new Date().getMonth()
+	);
+	const [currentYear, setCurrentYear] = useState(
+		initEnd ? initEnd.getFullYear() : initStart ? initStart.getFullYear() : new Date().getFullYear()
+	);
+	const [startDateObj, setStartDateObj] = useState<Date | null>(initStart);
+	const [endDateObj, setEndDateObj] = useState<Date | null>(initEnd);
+	const [fromInput, setFromInput] = useState(initStart ? formatInputDate(initStart) : "");
+	const [toInput, setToInput] = useState(initEnd ? formatInputDate(initEnd) : "");
+	const [focusedDate, setFocusedDate] = useState<Date | null>(null);
+	const calendarRef = useRef<HTMLDivElement>(null);
 
-  const parseAndClamp = (str: string): Date | null => {
-    const parts = str.split("/");
-    if (parts.length !== 3) return null;
-    const [ddRaw, mmRaw, yyyyRaw] = parts;
-    if (!/^\d+$/.test(ddRaw) || !/^\d+$/.test(mmRaw) || !/^\d+$/.test(yyyyRaw)) return null;
-    const dd = parseInt(ddRaw, 10);
-    const mm = parseInt(mmRaw, 10);
-    const yyyy = parseInt(yyyyRaw, 10);
-    if (yyyy < 1000 || mm < 1 || mm > 12 || dd < 1 || dd > 31) {
-      // Decide boundary based on year relation if possible
-      if (yyyy > latestDate.getFullYear()) return latestDate;
-      if (yyyy < earliestDate.getFullYear()) return earliestDate;
-      return null; // ambiguous malformed -> ignore
-    }
-    const candidate = new Date(yyyy, mm - 1, dd);
-    // Validate components (e.g., 31/02 becomes Mar 03)
-    if (candidate.getFullYear() !== yyyy || candidate.getMonth() !== mm - 1 || candidate.getDate() !== dd) {
-      // Invalid concrete date (e.g., 31/02) -> clamp using direction
-      const temp = new Date(yyyy, mm - 1, 1);
-      // If future month/year beyond today -> latest
-      if (temp.getTime() > latestDate.getTime()) return latestDate;
-      // If before earliest year/month -> earliest
-      if (temp.getTime() < earliestDate.getTime()) return earliestDate;
-      return null; // keep as null to avoid unexpected change
-    }
-    // Clamp to boundaries
-    if (candidate.getTime() > latestDate.getTime()) return latestDate;
-    if (candidate.getTime() < earliestDate.getTime()) return earliestDate;
-    return candidate;
-  };
+	const earliestDate = minDate || new Date(2020, 0, 1);
+	const latestDate = maxDate || new Date();
 
-  // Initialize from props
-  useEffect(() => {
-    if (initialStartDate) {
-      const d = parseDateString(initialStartDate);
-      if (d) {
-        setStartDateObj(d);
-        setFromInput(formatInputDate(d));
-      }
-    }
-    if (initialEndDate) {
-      const d = parseDateString(initialEndDate);
-      if (d) {
-        setEndDateObj(d);
-        setToInput(formatInputDate(d));
-        // Show the end date"s month when modal opens
-        setCurrentMonth(d.getMonth());
-        setCurrentYear(d.getFullYear());
-      }
-    } else if (initialStartDate) {
-      // If only start date, show that month
-      const d = parseDateString(initialStartDate);
-      if (d) {
-        setCurrentMonth(d.getMonth());
-        setCurrentYear(d.getFullYear());
-      }
-    }
-  }, [initialStartDate, initialEndDate]);
+	const parseAndClamp = (str: string): Date | null => {
+		const parts = str.split("/");
+		if (parts.length !== 3) return null;
+		const [ddRaw, mmRaw, yyyyRaw] = parts;
+		if (!/^\d+$/.test(ddRaw) || !/^\d+$/.test(mmRaw) || !/^\d+$/.test(yyyyRaw)) return null;
+		const dd = parseInt(ddRaw, 10);
+		const mm = parseInt(mmRaw, 10);
+		const yyyy = parseInt(yyyyRaw, 10);
+		if (yyyy < 1000 || mm < 1 || mm > 12 || dd < 1 || dd > 31) {
+			if (yyyy > latestDate.getFullYear()) return latestDate;
+			if (yyyy < earliestDate.getFullYear()) return earliestDate;
+			return null;
+		}
+		const candidate = new Date(yyyy, mm - 1, dd);
+		if (candidate.getFullYear() !== yyyy || candidate.getMonth() !== mm - 1 || candidate.getDate() !== dd) {
+			const temp = new Date(yyyy, mm - 1, 1);
+			if (temp.getTime() > latestDate.getTime()) return latestDate;
+			if (temp.getTime() < earliestDate.getTime()) return earliestDate;
+			return null;
+		}
+		if (candidate.getTime() > latestDate.getTime()) return latestDate;
+		if (candidate.getTime() < earliestDate.getTime()) return earliestDate;
+		return candidate;
+	};
 
-  // Removed early return before hooks to satisfy hook rules; we"ll return null after hooks.
+	const monthNames = [
+		"January",
+		"February",
+		"March",
+		"April",
+		"May",
+		"June",
+		"July",
+		"August",
+		"September",
+		"October",
+		"November",
+		"December",
+	];
 
-  const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
+	const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+	const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
 
-  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-  const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+	const handleMonthChange = (value: string) => {
+		const monthIndex = monthNames.indexOf(value);
+		if (monthIndex !== -1) {
+			setCurrentMonth(monthIndex);
+		}
+	};
 
-  const handleMonthChange = (value: string) => {
-    const monthIndex = monthNames.indexOf(value);
-    if (monthIndex !== -1) {
-      setCurrentMonth(monthIndex);
-    }
-  };
+	const handleYearChange = (value: string) => {
+		setCurrentYear(parseInt(value));
+	};
 
-  const handleYearChange = (value: string) => {
-    setCurrentYear(parseInt(value));
-  };
+	const handlePrevMonth = () => {
+		if (currentMonth === 0) {
+			setCurrentMonth(11);
+			setCurrentYear(currentYear - 1);
+		} else {
+			setCurrentMonth(currentMonth - 1);
+		}
+	};
 
-  const handlePrevMonth = () => {
-    if (currentMonth === 0) {
-      setCurrentMonth(11);
-      setCurrentYear(currentYear - 1);
-    } else {
-      setCurrentMonth(currentMonth - 1);
-    }
-  };
+	const handleNextMonth = () => {
+		if (currentMonth === 11) {
+			setCurrentMonth(0);
+			setCurrentYear(currentYear + 1);
+		} else {
+			setCurrentMonth(currentMonth + 1);
+		}
+	};
 
-  const handleNextMonth = () => {
-    if (currentMonth === 11) {
-      setCurrentMonth(0);
-      setCurrentYear(currentYear + 1);
-    } else {
-      setCurrentMonth(currentMonth + 1);
-    }
-  };
+	const minYearAvailable = earliestDate.getFullYear();
+	const maxYearAvailable = latestDate.getFullYear();
+	const yearOptions = Array.from(
+		{ length: maxYearAvailable - minYearAvailable + 1 },
+		(_, i) => String(minYearAvailable + i)
+	);
 
-  // Generate year options from minYear to maxYear (first data entry to today)
-  const minYearAvailable = earliestDate.getFullYear();
-  const maxYearAvailable = latestDate.getFullYear();
-  const yearOptions = Array.from(
-    { length: maxYearAvailable - minYearAvailable + 1 },
-    (_, i) => String(minYearAvailable + i)
-  );
+	const activateDate = (date: Date) => {
+		if (!startDateObj || endDateObj) {
+			setStartDateObj(date);
+			setEndDateObj(null);
+			setFromInput(formatInputDate(date));
+			setToInput("");
+		} else {
+			if (date.getTime() < startDateObj.getTime()) {
+				setEndDateObj(startDateObj);
+				setStartDateObj(date);
+				setFromInput(formatInputDate(date));
+				setToInput(formatInputDate(startDateObj));
+			} else {
+				setEndDateObj(date);
+				setToInput(formatInputDate(date));
+			}
+		}
+		setFocusedDate(date);
+		setCurrentMonth(date.getMonth());
+		setCurrentYear(date.getFullYear());
+	};
 
-  const activateDate = (date: Date) => {
-    if (!startDateObj || endDateObj) {
-      // Start new selection
-      setStartDateObj(date);
-      setEndDateObj(null);
-      setFromInput(formatInputDate(date));
-      setToInput("");
-    } else {
-      // Complete selection
-      if (date.getTime() < startDateObj.getTime()) {
-        setEndDateObj(startDateObj);
-        setStartDateObj(date);
-        setFromInput(formatInputDate(date));
-        setToInput(formatInputDate(startDateObj));
-      } else {
-        setEndDateObj(date);
-        setToInput(formatInputDate(date));
-      }
-    }
-    setFocusedDate(date);
-    setCurrentMonth(date.getMonth());
-    setCurrentYear(date.getFullYear());
-  };
+	const isInRange = (day: number) => {
+		if (!startDateObj || !endDateObj) return false;
+		const testDate = new Date(currentYear, currentMonth, day);
+		return testDate.getTime() >= startDateObj.getTime() && testDate.getTime() <= endDateObj.getTime();
+	};
+	const isRangeStart = (day: number) => {
+		if (!startDateObj) return false;
+		return startDateObj.getFullYear() === currentYear && startDateObj.getMonth() === currentMonth && startDateObj.getDate() === day;
+	};
+	const isRangeEnd = (day: number) => {
+		if (!endDateObj) return false;
+		return endDateObj.getFullYear() === currentYear && endDateObj.getMonth() === currentMonth && endDateObj.getDate() === day;
+	};
 
-  const isInRange = (day: number) => {
-    if (!startDateObj || !endDateObj) return false;
-    const testDate = new Date(currentYear, currentMonth, day);
-    return testDate.getTime() >= startDateObj.getTime() && testDate.getTime() <= endDateObj.getTime();
-  };
-  const isRangeStart = (day: number) => {
-    if (!startDateObj) return false;
-    return startDateObj.getFullYear() === currentYear && startDateObj.getMonth() === currentMonth && startDateObj.getDate() === day;
-  };
-  const isRangeEnd = (day: number) => {
-    if (!endDateObj) return false;
-    return endDateObj.getFullYear() === currentYear && endDateObj.getMonth() === currentMonth && endDateObj.getDate() === day;
-  };
+	const handleSelectDate = () => {
+		if (startDateObj && endDateObj) {
+			const formattedStart = formatInputDate(startDateObj);
+			const formattedEnd = formatInputDate(endDateObj);
+			onSelect(formattedStart, formattedEnd);
+			onClose();
+		}
+	};
 
-  const handleSelectDate = () => {
-    if (startDateObj && endDateObj) {
-      const formattedStart = formatInputDate(startDateObj);
-      const formattedEnd = formatInputDate(endDateObj);
-      onSelect(formattedStart, formattedEnd);
-      onClose();
-    }
-  };
+	const changeMonthIfNeeded = (d: Date) => {
+		const m = d.getMonth();
+		const y = d.getFullYear();
+		if (m !== currentMonth || y !== currentYear) {
+			setCurrentMonth(m);
+			setCurrentYear(y);
+		}
+	};
 
-  // Keyboard navigation handlers
-  const changeMonthIfNeeded = useCallback(
-    (d: Date) => {
-      const m = d.getMonth();
-      const y = d.getFullYear();
-      if (m !== currentMonth || y !== currentYear) {
-        setCurrentMonth(m);
-        setCurrentYear(y);
-      }
-    },
-    [currentMonth, currentYear]
-  );
+	const moveFocusByDays = (delta: number) => {
+		const base = focusedDate || startDateObj || new Date(currentYear, currentMonth, 1);
+		const next = new Date(base.getFullYear(), base.getMonth(), base.getDate() + delta);
+		setFocusedDate(next);
+		changeMonthIfNeeded(next);
+	};
 
-  const moveFocusByDays = (delta: number) => {
-    const base = focusedDate || startDateObj || new Date(currentYear, currentMonth, 1);
-    const next = new Date(base.getFullYear(), base.getMonth(), base.getDate() + delta);
-    setFocusedDate(next);
-    changeMonthIfNeeded(next);
-  };
+	const handleKeyDown = (e: React.KeyboardEvent) => {
+		switch (e.key) {
+			case "ArrowLeft":
+				e.preventDefault();
+				moveFocusByDays(-1);
+				break;
+			case "ArrowRight":
+				e.preventDefault();
+				moveFocusByDays(1);
+				break;
+			case "ArrowUp":
+				e.preventDefault();
+				moveFocusByDays(-7);
+				break;
+			case "ArrowDown":
+				e.preventDefault();
+				moveFocusByDays(7);
+				break;
+			case "PageUp":
+				e.preventDefault();
+				handlePrevMonth();
+				break;
+			case "PageDown":
+				e.preventDefault();
+				handleNextMonth();
+				break;
+			case "Home":
+				e.preventDefault();
+				setFocusedDate(new Date(currentYear, currentMonth, 1));
+				break;
+			case "End":
+				e.preventDefault();
+				setFocusedDate(new Date(currentYear, currentMonth, daysInMonth));
+				break;
+			case "Enter":
+			case " ":
+				e.preventDefault();
+				if (focusedDate) {
+					if (focusedDate.getMonth() === currentMonth && focusedDate.getFullYear() === currentYear) {
+						activateDate(focusedDate);
+					}
+				}
+				break;
+			case "Escape":
+				e.preventDefault();
+				onClose();
+				break;
+		}
+	};
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    switch (e.key) {
-      case "ArrowLeft":
-        e.preventDefault();
-        moveFocusByDays(-1);
-        break;
-      case "ArrowRight":
-        e.preventDefault();
-        moveFocusByDays(1);
-        break;
-      case "ArrowUp":
-        e.preventDefault();
-        moveFocusByDays(-7);
-        break;
-      case "ArrowDown":
-        e.preventDefault();
-        moveFocusByDays(7);
-        break;
-      case "PageUp":
-        e.preventDefault();
-        handlePrevMonth();
-        break;
-      case "PageDown":
-        e.preventDefault();
-        handleNextMonth();
-        break;
-      case "Home":
-        e.preventDefault();
-        setFocusedDate(new Date(currentYear, currentMonth, 1));
-        break;
-      case "End":
-        e.preventDefault();
-        setFocusedDate(new Date(currentYear, currentMonth, daysInMonth));
-        break;
-      case "Enter":
-      case " ":
-        e.preventDefault();
-        if (focusedDate) {
-          if (focusedDate.getMonth() === currentMonth && focusedDate.getFullYear() === currentYear) {
-            activateDate(focusedDate);
-          }
-        }
-        break;
-      case "Escape":
-        e.preventDefault();
-        onClose();
-        break;
-    }
-  };
+	useEffect(() => {
+		if (!calendarRef.current || !focusedDate) return;
+		const selector = `[data-date="${focusedDate.getFullYear()}-${focusedDate.getMonth()}-${focusedDate.getDate()}"]`;
+		const el = calendarRef.current.querySelector<HTMLButtonElement>(selector);
+		if (el) el.focus();
+	}, [focusedDate, currentMonth, currentYear]);
 
-  // Focus the currently focused date element after render
-  useEffect(() => {
-    if (!calendarRef.current || !focusedDate) return;
-    const selector = `[data-date="${focusedDate.getFullYear()}-${focusedDate.getMonth()}-${focusedDate.getDate()}"]`;
-    const el = calendarRef.current.querySelector<HTMLButtonElement>(selector);
-    if (el) el.focus();
-  }, [focusedDate, currentMonth, currentYear]);
+	const onFromInputBlur = () => {
+		const parsed = parseAndClamp(fromInput);
+		if (!parsed) return;
+		const start = parsed;
+		let end = endDateObj;
+		if (end && end.getTime() < start.getTime()) {
+			end = start;
+		}
+		setStartDateObj(start);
+		setEndDateObj(end);
+		setFocusedDate(start);
+		setCurrentMonth(start.getMonth());
+		setCurrentYear(start.getFullYear());
+		if (end) setToInput(formatInputDate(end));
+		setFromInput(formatInputDate(start));
+	};
+	const onToInputBlur = () => {
+		const parsed = parseAndClamp(toInput);
+		if (!parsed) return;
+		const end = parsed;
+		let start = startDateObj;
+		if (start && end.getTime() < start.getTime()) {
+			start = end;
+		}
+		if (!start) start = end;
+		if (start.getTime() < earliestDate.getTime()) start = earliestDate;
+		setStartDateObj(start);
+		setEndDateObj(end);
+		setFromInput(formatInputDate(start));
+		setToInput(formatInputDate(end));
+		setFocusedDate(end);
+		setCurrentMonth(end.getMonth());
+		setCurrentYear(end.getFullYear());
+	};
 
-  // Manual input editing
-  const onFromInputBlur = () => {
-    const parsed = parseAndClamp(fromInput);
-    if (!parsed) return; // ignore completely invalid input
-    const start = parsed;
-    let end = endDateObj;
-    if (end && end.getTime() < start.getTime()) {
-      end = start; // maintain order
-    }
-    setStartDateObj(start);
-    setEndDateObj(end);
-    setFocusedDate(start);
-    setCurrentMonth(start.getMonth());
-    setCurrentYear(start.getFullYear());
-    if (end) setToInput(formatInputDate(end));
-    setFromInput(formatInputDate(start));
-  };
-  const onToInputBlur = () => {
-    const parsed = parseAndClamp(toInput);
-    if (!parsed) return; // ignore completely invalid
-    const end = parsed;
-    let start = startDateObj;
-    if (start && end.getTime() < start.getTime()) {
-      start = end; // adjust start backwards
-    }
-    // Clamp start again to earliest if needed (in case start was null or outside)
-    if (!start) start = end;
-    if (start.getTime() < earliestDate.getTime()) start = earliestDate;
-    setStartDateObj(start);
-    setEndDateObj(end);
-    setFromInput(formatInputDate(start));
-    setToInput(formatInputDate(end));
-    setFocusedDate(end);
-    setCurrentMonth(end.getMonth());
-    setCurrentYear(end.getFullYear());
-  };
+	const renderCalendar = () => {
+		const days = [];
+		const totalCells = Math.ceil((firstDayOfMonth + daysInMonth) / 7) * 7;
 
-  const renderCalendar = () => {
-    const days = [];
-    const totalCells = Math.ceil((firstDayOfMonth + daysInMonth) / 7) * 7;
+		for (let i = 0; i < firstDayOfMonth; i++) {
+			days.push(<div key={`empty-${i}`} className={styles.date}></div>);
+		}
 
-    // Previous month days
-    for (let i = 0; i < firstDayOfMonth; i++) {
-      days.push(<div key={`empty-${i}`} className={styles.date}></div>);
-    }
+		for (let day = 1; day <= daysInMonth; day++) {
+			const start = isRangeStart(day);
+			const end = isRangeEnd(day);
+			const middle = isInRange(day) && !start && !end;
+			let extraClass = "";
+			if (start) extraClass = styles.dateStart;
+			else if (end) extraClass = styles.dateEnd;
+			else if (middle) extraClass = styles.dateMiddle;
+			const thisDateObj = new Date(currentYear, currentMonth, day);
+			const isFocused = focusedDate && thisDateObj.getTime() === focusedDate.getTime();
+			const ariaSelected = start || end || middle;
+			days.push(
+				<button
+					key={day}
+					type="button"
+					className={`${styles.date} ${extraClass}`}
+					data-date={`${currentYear}-${currentMonth}-${day}`}
+					tabIndex={isFocused ? 0 : -1}
+					role="gridcell"
+					aria-selected={ariaSelected}
+					aria-label={`${day} ${ariaSelected ? "selected" : ""}`.trim()}
+					onClick={() => activateDate(thisDateObj)}
+					onFocus={() => setFocusedDate(thisDateObj)}
+				>
+					{day}
+				</button>
+			);
+		}
 
-    // Current month days
-    for (let day = 1; day <= daysInMonth; day++) {
-      const start = isRangeStart(day);
-      const end = isRangeEnd(day);
-      const middle = isInRange(day) && !start && !end;
-      let extraClass = "";
-      if (start) extraClass = styles.dateStart;
-      else if (end) extraClass = styles.dateEnd;
-      else if (middle) extraClass = styles.dateMiddle;
-      const thisDateObj = new Date(currentYear, currentMonth, day);
-      const isFocused = focusedDate && thisDateObj.getTime() === focusedDate.getTime();
-      const ariaSelected = start || end || middle;
-      days.push(
-        <button
-          key={day}
-          type="button"
-          className={`${styles.date} ${extraClass}`}
-          data-date={`${currentYear}-${currentMonth}-${day}`}
-          tabIndex={isFocused ? 0 : -1}
-          role="gridcell"
-          aria-selected={ariaSelected}
-          aria-label={`${day} ${ariaSelected ? "selected" : ""}`.trim()}
-          onClick={() => activateDate(thisDateObj)}
-          onFocus={() => setFocusedDate(thisDateObj)}
-        >
-          {day}
-        </button>
-      );
-    }
+		const remainingCells = totalCells - days.length;
+		for (let i = 1; i <= remainingCells; i++) {
+			days.push(
+				<div key={`next-${i}`} className={`${styles.date} ${styles.otherMonth}`}>
+					{i}
+				</div>
+			);
+		}
 
-    // Next month days (grayed out)
-    const remainingCells = totalCells - days.length;
-    for (let i = 1; i <= remainingCells; i++) {
-      days.push(
-        <div key={`next-${i}`} className={`${styles.date} ${styles.otherMonth}`}>
-          {i}
-        </div>
-      );
-    }
+		return days;
+	};
 
-    return days;
-  };
+	if (!isOpen) return null;
 
-  if (!isOpen) return null;
+	return (
+		<>
+			<div className={styles.overlay} onClick={onClose}></div>
+			<div className={styles.modal}>
+				<div className={styles.month}>
+					<button
+						type="button"
+						className={styles.navButton}
+						onClick={handlePrevMonth}
+						aria-label="Previous month"
+					>
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+							<circle cx="12" cy="12" r="9.75" fill="var(--bg-primary-normal)" />
+							<path
+								d="M13.5 8.5L10 12L13.5 15.5"
+								stroke="white"
+								strokeWidth="1.5"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+							/>
+						</svg>
+					</button>
+					<div className={styles.monthYearContainer}>
+						<Dropdown
+							options={monthNames}
+							value={monthNames[currentMonth]}
+							onChange={handleMonthChange}
+							className={styles.monthDropdown}
+						/>
+						<Dropdown
+							options={yearOptions}
+							value={String(currentYear)}
+							onChange={handleYearChange}
+							className={styles.yearDropdown}
+						/>
+					</div>
+					<button
+						type="button"
+						className={styles.navButton}
+						onClick={handleNextMonth}
+						aria-label="Next month"
+					>
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+							<circle cx="12" cy="12" r="9.75" fill="var(--bg-primary-normal)" />
+							<path
+								d="M10.5 8.5L14 12L10.5 15.5"
+								stroke="white"
+								strokeWidth="1.5"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+							/>
+						</svg>
+					</button>
+				</div>
 
-  return (
-    <>
-      <div className={styles.overlay} onClick={onClose}></div>
-      <div className={styles.modal}>
-        <div className={styles.month}>
-          <button
-            type="button"
-            className={styles.navButton}
-            onClick={handlePrevMonth}
-            aria-label="Previous month"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="12" r="9.75" fill="var(--bg-primary-normal)" />
-              <path
-                d="M13.5 8.5L10 12L13.5 15.5"
-                stroke="white"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-          <div className={styles.monthYearContainer}>
-            <Dropdown
-              options={monthNames}
-              value={monthNames[currentMonth]}
-              onChange={handleMonthChange}
-              className={styles.monthDropdown}
-            />
-            <Dropdown
-              options={yearOptions}
-              value={String(currentYear)}
-              onChange={handleYearChange}
-              className={styles.yearDropdown}
-            />
-          </div>
-          <button
-            type="button"
-            className={styles.navButton}
-            onClick={handleNextMonth}
-            aria-label="Next month"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="12" r="9.75" fill="var(--bg-primary-normal)" />
-              <path
-                d="M10.5 8.5L14 12L10.5 15.5"
-                stroke="white"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-        </div>
+				<div className={styles.daySection}>
+					<div className={styles.dayHeader}>
+						<div className={styles.dayName}>Sun</div>
+						<div className={styles.dayName}>Mon</div>
+						<div className={styles.dayName}>Tue</div>
+						<div className={styles.dayName}>Wed</div>
+						<div className={styles.dayName}>Thu</div>
+						<div className={styles.dayName}>Fri</div>
+						<div className={styles.dayName}>Sat</div>
+					</div>
 
-        <div className={styles.daySection}>
-          <div className={styles.dayHeader}>
-            <div className={styles.dayName}>Sun</div>
-            <div className={styles.dayName}>Mon</div>
-            <div className={styles.dayName}>Tue</div>
-            <div className={styles.dayName}>Wed</div>
-            <div className={styles.dayName}>Thu</div>
-            <div className={styles.dayName}>Fri</div>
-            <div className={styles.dayName}>Sat</div>
-          </div>
+					<div
+						className={styles.calendar}
+						role="grid"
+						onKeyDown={handleKeyDown}
+						ref={calendarRef}
+					>
+						{renderCalendar()}
+					</div>
+				</div>
 
-          <div
-            className={styles.calendar}
-            role="grid"
-            onKeyDown={handleKeyDown}
-            ref={calendarRef}
-          >
-            {renderCalendar()}
-          </div>
-        </div>
+				<div className={styles.form}>
+					<div className={styles.inputField}>
+						<label className={styles.label}>From</label>
+						<div className={styles.inputArea}>
+							<DateIcon width={20} height={20} />
+							<input
+								type="text"
+								value={fromInput}
+								onChange={(e) => setFromInput(e.target.value)}
+								onBlur={onFromInputBlur}
+								placeholder="DD/MM/YYYY"
+								className={styles.input}
+							/>
+						</div>
+					</div>
 
-        <div className={styles.form}>
-          <div className={styles.inputField}>
-            <label className={styles.label}>From</label>
-            <div className={styles.inputArea}>
-              <DateIcon width={20} height={20} />
-              <input
-                type="text"
-                value={fromInput}
-                onChange={(e) => setFromInput(e.target.value)}
-                onBlur={onFromInputBlur}
-                placeholder="DD/MM/YYYY"
-                className={styles.input}
-              />
-            </div>
-          </div>
+					<div className={styles.inputField}>
+						<label className={styles.label}>To</label>
+						<div className={styles.inputArea}>
+							<DateIcon width={20} height={20} />
+							<input
+								type="text"
+								value={toInput}
+								onChange={(e) => setToInput(e.target.value)}
+								onBlur={onToInputBlur}
+								placeholder="DD/MM/YYYY"
+								className={styles.input}
+							/>
+						</div>
+					</div>
+				</div>
 
-          <div className={styles.inputField}>
-            <label className={styles.label}>To</label>
-            <div className={styles.inputArea}>
-              <DateIcon width={20} height={20} />
-              <input
-                type="text"
-                value={toInput}
-                onChange={(e) => setToInput(e.target.value)}
-                onBlur={onToInputBlur}
-                placeholder="DD/MM/YYYY"
-                className={styles.input}
-              />
-            </div>
-          </div>
-        </div>
-
-        <button
-          type="button"
-          className={styles.selectButton}
-          onClick={handleSelectDate}
-        >
-          Select Date
-        </button>
-      </div>
-    </>
-  );
+				<button
+					type="button"
+					className={styles.selectButton}
+					onClick={handleSelectDate}
+				>
+					Select Date
+				</button>
+			</div>
+		</>
+	);
 }

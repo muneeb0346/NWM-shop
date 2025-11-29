@@ -1,6 +1,7 @@
 "use client";
 
 import styles from "./BookingInsightsLineChart.module.css";
+import DashBoardstyles from "@styles/DashboardStyles.module.css";
 import DateRangeButton from "@components/ui/buttons/DateRangeButton";
 import ChartTooltip from "@components/ui/tooltips/ChartTooltip";
 import { useBookingInsights } from "@contexts/BookingInsightsContext";
@@ -18,7 +19,6 @@ export default function BookingInsightsLineChart() {
     const { startDate, endDate, dateRangeLabel, currentData, minDate, maxDate, setSelectedRange } = useBookingInsights();
     const maxTicks = 7;
     const chartData = currentData.map((d, i) => ({ d: i + 1, appointments: d.appointments, label: d.date }));
-    // Range-based fallback: derive days and labels from selected start/end
     const rangeDays = startDate && endDate ? Math.max(1, Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1) : chartData.length;
     const days = chartData.length ? chartData.length : (rangeDays || 1);
     const labelByDay: Record<number, string> = Object.fromEntries(
@@ -42,8 +42,8 @@ export default function BookingInsightsLineChart() {
     })();
 
     return (
-        <div className="card">
-            <div className="card-header">
+        <div className={DashBoardstyles.card}>
+            <div className={DashBoardstyles["card-header"]}>
                 <h3 className="head-20-600-130">Booking Insights</h3>
                 <DateRangeButton
                     placeholder={dateRangeLabel}
@@ -83,7 +83,7 @@ export default function BookingInsightsLineChart() {
                             domain={[1, days]}
                             axisLine={false}
                             tickLine={false}
-                            tick={{ className: `text-12-500-140 ${styles["axis-tick"]}` }}
+                            tick={{ className: `text-12-500-140 ${DashBoardstyles["axis-tick"]}` }}
                             interval={0}
                             ticks={tickDays}
                             tickFormatter={(v: number) => labelByDay[v] ?? ""}
@@ -93,7 +93,7 @@ export default function BookingInsightsLineChart() {
                         <YAxis
                             axisLine={false}
                             tickLine={false}
-                            tick={{ className: `text-12-500-140 ${styles["y-axis-tick"]}`, textAnchor: "start", dx: -22 }}
+                            tick={{ className: `text-12-500-140 ${DashBoardstyles["y-axis-tick"]}`, textAnchor: "start", dx: -22 }}
                             domain={[0, 35]}
                             ticks={[0, 5, 10, 15, 20, 25, 30, 35]}
                             tickMargin={0}
@@ -101,7 +101,7 @@ export default function BookingInsightsLineChart() {
                         />
                         <Tooltip
                             content={<ChartTooltip valueLabel="Appointments" />}
-                            cursor={{ className: styles.cursor }}
+                            cursor={{ className: DashBoardstyles.cursor }}
                         />
                         <Line
                             type="monotone"

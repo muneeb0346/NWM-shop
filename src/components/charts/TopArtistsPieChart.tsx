@@ -5,6 +5,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import DateRangeButton from "@components/ui/buttons/DateRangeButton";
 import { useTopArtists } from "@contexts/TopArtistsContext";
 import styles from "./TopArtistsPieChart.module.css";
+import DashBoardstyles from "@styles/DashboardStyles.module.css";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CustomLabel = (props: any) => {
@@ -57,12 +58,12 @@ export default function TopArtistsPieChart() {
         ? chartData.reduce(
             (maxIdx, item, idx, arr) =>
                 item.appointments > arr[maxIdx].appointments ? idx : maxIdx, 0
-          )
+        )
         : -1;
 
     return (
-        <div className="card">
-            <div className="card-header">
+        <div className={DashBoardstyles.card}>
+            <div className={DashBoardstyles["card-header"]}>
                 <h3 className="heading-h6-600">Top Artists</h3>
                 <DateRangeButton
                     placeholder={dateRangeLabel}
@@ -88,7 +89,7 @@ export default function TopArtistsPieChart() {
             <div className={styles["chart-container"]}>
                 <div className={styles["chart-wrapper"]}>
                     {chartData.length === 0 && (
-                        <div className={styles["empty-state"]}>
+                        <div className={DashBoardstyles["empty-state"]}>
                             No data to display
                         </div>
                     )}
