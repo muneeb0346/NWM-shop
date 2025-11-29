@@ -23,6 +23,7 @@
       "@components/*": ["./src/components/*"],
       "@styles/*": ["./src/styles/*"],
       "@contexts/*": ["./src/contexts/*"],
+      "@modals/*": ["./src/components/ui/modals/*"]
     }
   },
   "include": [

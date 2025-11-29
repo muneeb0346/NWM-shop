@@ -12,9 +12,11 @@ import CircledHashTagIcon from "@components/ui/icons/CircledHashTagIcon";
 import WalletIcon from "@components/ui/icons/WalletIcon";
 import CircledGivingHandIcon from "@components/ui/icons/CircledGivingHandIcon";
 import CircledSparkIcon from "@components/ui/icons/CircledSparkIcon";
-import BookingInsightsLineChart from "@/components/charts/BookingInsightsLineChart";
-import TopArtistsBarChart from "@/components/charts/TopArtistsBarChart";
-import TopArtistsPieChart from "@/components/charts/TopArtistsPieChart";
+import BookingInsightsLineChart from "@components/charts/BookingInsightsLineChart";
+import TopArtistsBarChart from "@components/charts/TopArtistsBarChart";
+import TopArtistsPieChart from "@components/charts/TopArtistsPieChart";
+import { BookingInsightsProvider } from "@contexts/BookingInsightsContext";
+import { TopArtistsProvider } from "@contexts/TopArtistsContext";
 
 export default function DashboardPage() {
     return (
@@ -39,9 +41,13 @@ export default function DashboardPage() {
                         <DashboardCard Icon={CircledGivingHandIcon} heading="Avg Booking Value" valueText="$1,254" trendDirection="downwards" trendText="3.51%" trendContextText="last month" />
                         <DashboardCard Icon={CircledSparkIcon} heading="No Show Rate" valueText="5%" trendText="9.97%" trendContextText="last month" />
                     </div>
-                    <BookingInsightsLineChart />
-                    <TopArtistsBarChart />
-                    <TopArtistsPieChart />
+                    <BookingInsightsProvider>
+                        <BookingInsightsLineChart />
+                    </BookingInsightsProvider>
+                    <TopArtistsProvider>
+                        <TopArtistsBarChart />
+                        <TopArtistsPieChart />
+                    </TopArtistsProvider>
                 </div>
                 <div className={styles["content-right"]}>
                 </div>

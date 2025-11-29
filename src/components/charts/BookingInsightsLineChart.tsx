@@ -1,9 +1,9 @@
 "use client";
 
 import styles from "./BookingInsightsLineChart.module.css";
-import Dropdown from "@components/ui/dropdowns/Dropdown";
+import DateRangeButton from "@components/ui/buttons/DateRangeButton";
 import ChartTooltip from "@components/ui/tooltips/ChartTooltip";
-import { useState } from "react";
+import { useBookingInsights } from "@contexts/BookingInsightsContext";
 import {
     LineChart,
     Line,
@@ -14,91 +14,22 @@ import {
     ResponsiveContainer,
 } from "recharts";
 
-interface DataPoint {
-    date: string;
-    appointments: number;
-}
-
-interface MonthData {
-    [key: string]: DataPoint[];
-}
-
-const mockData: MonthData = {
-    "December 2024": [
-        { date: "Dec 01", appointments: 10 },
-        { date: "Dec 02", appointments: 8 },
-        { date: "Dec 03", appointments: 17 },
-        { date: "Dec 04", appointments: 15 },
-        { date: "Dec 05", appointments: 19 },
-        { date: "Dec 06", appointments: 12 },
-        { date: "Dec 07", appointments: 23 },
-        { date: "Dec 08", appointments: 18 },
-        { date: "Dec 09", appointments: 16 },
-        { date: "Dec 10", appointments: 14 },
-        { date: "Dec 11", appointments: 20 },
-        { date: "Dec 12", appointments: 22 },
-        { date: "Dec 13", appointments: 19 },
-        { date: "Dec 14", appointments: 15 },
-        { date: "Dec 15", appointments: 17 },
-        { date: "Dec 16", appointments: 21 },
-        { date: "Dec 17", appointments: 18 },
-        { date: "Dec 18", appointments: 16 },
-        { date: "Dec 19", appointments: 14 },
-        { date: "Dec 20", appointments: 19 },
-        { date: "Dec 21", appointments: 23 },
-        { date: "Dec 22", appointments: 20 },
-        { date: "Dec 23", appointments: 18 },
-        { date: "Dec 24", appointments: 12 },
-        { date: "Dec 25", appointments: 8 },
-        { date: "Dec 26", appointments: 10 },
-        { date: "Dec 27", appointments: 15 },
-        { date: "Dec 28", appointments: 19 },
-        { date: "Dec 29", appointments: 21 },
-        { date: "Dec 30", appointments: 22 },
-        { date: "Dec 31", appointments: 17 },
-    ],
-    "November 2024": [
-        { date: "Nov 01", appointments: 12 },
-        { date: "Nov 02", appointments: 14 },
-        { date: "Nov 03", appointments: 16 },
-        { date: "Nov 04", appointments: 15 },
-        { date: "Nov 05", appointments: 18 },
-        { date: "Nov 06", appointments: 20 },
-        { date: "Nov 07", appointments: 17 },
-        { date: "Nov 08", appointments: 19 },
-        { date: "Nov 09", appointments: 21 },
-        { date: "Nov 10", appointments: 18 },
-        { date: "Nov 11", appointments: 16 },
-        { date: "Nov 12", appointments: 14 },
-        { date: "Nov 13", appointments: 15 },
-        { date: "Nov 14", appointments: 17 },
-        { date: "Nov 15", appointments: 19 },
-        { date: "Nov 16", appointments: 22 },
-        { date: "Nov 17", appointments: 20 },
-        { date: "Nov 18", appointments: 18 },
-        { date: "Nov 19", appointments: 16 },
-        { date: "Nov 20", appointments: 14 },
-        { date: "Nov 21", appointments: 15 },
-        { date: "Nov 22", appointments: 17 },
-        { date: "Nov 23", appointments: 19 },
-        { date: "Nov 24", appointments: 21 },
-        { date: "Nov 25", appointments: 18 },
-        { date: "Nov 26", appointments: 16 },
-        { date: "Nov 27", appointments: 14 },
-        { date: "Nov 28", appointments: 15 },
-        { date: "Nov 29", appointments: 17 },
-        { date: "Nov 30", appointments: 19 },
-    ],
-};
-
-export default function BookingInsightsChart() {
-    const availableMonths = Object.keys(mockData);
-    const [selectedMonth, setSelectedMonth] = useState(availableMonths[0]);
-    const currentData = mockData[selectedMonth] || [];
+export default function BookingInsightsLineChart() {
+    const { startDate, endDate, dateRangeLabel, currentData, minDate, maxDate, setSelectedRange } = useBookingInsights();
     const maxTicks = 7;
     const chartData = currentData.map((d, i) => ({ d: i + 1, appointments: d.appointments, label: d.date }));
-    const days = chartData.length || 1;
-    const labelByDay: Record<number, string> = Object.fromEntries(chartData.map((x) => [x.d, x.label]));
+    // Range-based fallback: derive days and labels from selected start/end
+    const rangeDays = startDate && endDate ? Math.max(1, Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1) : chartData.length;
+    const days = chartData.length ? chartData.length : (rangeDays || 1);
+    const labelByDay: Record<number, string> = Object.fromEntries(
+        chartData.length
+            ? chartData.map((x) => [x.d, x.label])
+            : Array.from({ length: days }, (_, i) => {
+                const d = startDate ? new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + i) : new Date();
+                const label = d.toLocaleString("default", { month: "short" }) + " " + String(d.getDate()).padStart(2, "0");
+                return [i + 1, label] as [number, string];
+              })
+    );
     const tickDays: number[] = (() => {
         if (days <= maxTicks) return Array.from({ length: days }, (_, i) => i + 1);
         const step = (days - 1) / (maxTicks - 1);
@@ -114,10 +45,25 @@ export default function BookingInsightsChart() {
         <div className="card">
             <div className="card-header">
                 <h3 className="head-20-600-130">Booking Insights</h3>
-                <Dropdown
-                    options={availableMonths}
-                    value={selectedMonth}
-                    onChange={setSelectedMonth}
+                <DateRangeButton
+                    placeholder={dateRangeLabel}
+                    minDate={minDate}
+                    maxDate={maxDate}
+                    initialStartDate={startDate ? (() => {
+                        const dd = String(startDate.getDate()).padStart(2, "0");
+                        const mm = String(startDate.getMonth() + 1).padStart(2, "0");
+                        const yyyy = startDate.getFullYear();
+                        return `${dd}/${mm}/${yyyy}`;
+                    })() : undefined}
+                    initialEndDate={endDate ? (() => {
+                        const dd = String(endDate.getDate()).padStart(2, "0");
+                        const mm = String(endDate.getMonth() + 1).padStart(2, "0");
+                        const yyyy = endDate.getFullYear();
+                        return `${dd}/${mm}/${yyyy}`;
+                    })() : undefined}
+                    onChange={(startDate, endDate) => {
+                        setSelectedRange(startDate, endDate);
+                    }}
                 />
             </div>
             <div className={styles["chart-container"]}>

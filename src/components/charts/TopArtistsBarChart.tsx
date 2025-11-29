@@ -11,26 +11,10 @@ import {
     ResponsiveContainer,
     Cell
 } from "recharts";
-import Dropdown from "@components/ui/dropdowns/Dropdown";
+import DateRangeButton from "@components/ui/buttons/DateRangeButton";
 import ChartTooltip from "@components/ui/tooltips/ChartTooltip";
+import { useTopArtists } from "@contexts/TopArtistsContext";
 import styles from "./TopArtistsBarChart.module.css";
-
-const mockData = {
-    "December 2024": [
-        { name: "Clara Jensen", appointments: 35 },
-        { name: "Sophie Langley", appointments: 50 },
-        { name: "Ethan", appointments: 25 },
-        { name: "Luca Moretti", appointments: 30 },
-        { name: "Ayra Voss", appointments: 38 }
-    ],
-    "November 2024": [
-        { name: "Clara Jensen", appointments: 28 },
-        { name: "Sophie Langley", appointments: 42 },
-        { name: "Ethan", appointments: 32 },
-        { name: "Luca Moretti", appointments: 25 },
-        { name: "Ayra Voss", appointments: 35 }
-    ]
-};
 
 const RoundedBar = (props: {
     fill?: string;
@@ -71,29 +55,47 @@ const RoundedBar = (props: {
     );
 };
 
-export default function TopArtistsChart() {
-    const [selectedMonth, setSelectedMonth] = useState("December 2024");
+export default function TopArtistsBarChart() {
+    const { chartData, dateRangeLabel, startDate, endDate, minDate, maxDate, setSelectedRange } = useTopArtists();
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-    const availableMonths = ["December 2024", "November 2024"];
-    const chartData = mockData[selectedMonth as keyof typeof mockData];
-
-    const maxIndex = chartData.reduce(
-        (maxIdx, item, idx, arr) =>
-            item.appointments > arr[maxIdx].appointments ? idx : maxIdx,
-        0
-    );
+    const maxIndex = chartData.length
+        ? chartData.reduce(
+            (maxIdx, item, idx, arr) => item.appointments > arr[maxIdx].appointments ? idx : maxIdx,
+            0
+          )
+        : -1;
 
     return (
         <div className="card">
             <div className="card-header">
                 <h3 className="heading-h6-600">Top Artists</h3>
-                <Dropdown
-                    options={availableMonths}
-                    value={selectedMonth}
-                    onChange={setSelectedMonth}
+                <DateRangeButton
+                    placeholder={dateRangeLabel}
+                    minDate={minDate}
+                    maxDate={maxDate}
+                    initialStartDate={startDate ? (() => {
+                        const dd = String(startDate.getDate()).padStart(2, "0");
+                        const mm = String(startDate.getMonth() + 1).padStart(2, "0");
+                        const yyyy = startDate.getFullYear();
+                        return `${dd}/${mm}/${yyyy}`;
+                    })() : undefined}
+                    initialEndDate={endDate ? (() => {
+                        const dd = String(endDate.getDate()).padStart(2, "0");
+                        const mm = String(endDate.getMonth() + 1).padStart(2, "0");
+                        const yyyy = endDate.getFullYear();
+                        return `${dd}/${mm}/${yyyy}`;
+                    })() : undefined}
+                    onChange={(startDate, endDate) => {
+                        setSelectedRange(startDate, endDate);
+                    }}
                 />
             </div>
             <div className={styles["chart-container"]}>
+                {chartData.length === 0 && (
+                    <div className={styles["empty-state"]}>
+                        No data to display
+                    </div>
+                )}
                 <ResponsiveContainer width="100%" height="100%">
                     <BarChart
                         data={chartData}
