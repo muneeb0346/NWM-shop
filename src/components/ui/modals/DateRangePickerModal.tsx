@@ -8,11 +8,12 @@ import Dropdown from "@components/ui/dropdowns/Dropdown";
 interface DateRangePickerModalProps {
 	isOpen: boolean;
 	onClose: () => void;
-	onSelect: (startDate: string, endDate: string) => void;
+	onSelect: (startDate: string, endDate?: string) => void;
 	initialStartDate?: string;
 	initialEndDate?: string;
 	minDate?: Date;
 	maxDate?: Date;
+	singleMode?: boolean;
 }
 
 export default function DateRangePickerModal({
@@ -23,6 +24,7 @@ export default function DateRangePickerModal({
 	initialEndDate = "",
 	minDate,
 	maxDate,
+	singleMode = false,
 }: DateRangePickerModalProps) {
 	const parseDateString = (str: string): Date | null => {
 		const parts = str.split("/");
@@ -137,20 +139,27 @@ export default function DateRangePickerModal({
 	);
 
 	const activateDate = (date: Date) => {
-		if (!startDateObj || endDateObj) {
+		if (singleMode) {
 			setStartDateObj(date);
-			setEndDateObj(null);
+			setEndDateObj(date);
 			setFromInput(formatInputDate(date));
 			setToInput("");
 		} else {
-			if (date.getTime() < startDateObj.getTime()) {
-				setEndDateObj(startDateObj);
+			if (!startDateObj || endDateObj) {
 				setStartDateObj(date);
+				setEndDateObj(null);
 				setFromInput(formatInputDate(date));
-				setToInput(formatInputDate(startDateObj));
+				setToInput("");
 			} else {
-				setEndDateObj(date);
-				setToInput(formatInputDate(date));
+				if (date.getTime() < startDateObj.getTime()) {
+					setEndDateObj(startDateObj);
+					setStartDateObj(date);
+					setFromInput(formatInputDate(date));
+					setToInput(formatInputDate(startDateObj));
+				} else {
+					setEndDateObj(date);
+					setToInput(formatInputDate(date));
+				}
 			}
 		}
 		setFocusedDate(date);
@@ -173,10 +182,16 @@ export default function DateRangePickerModal({
 	};
 
 	const handleSelectDate = () => {
-		if (startDateObj && endDateObj) {
+		if (startDateObj) {
 			const formattedStart = formatInputDate(startDateObj);
-			const formattedEnd = formatInputDate(endDateObj);
-			onSelect(formattedStart, formattedEnd);
+			if (singleMode) {
+				onSelect(formattedStart);
+			} else if (endDateObj) {
+				const formattedEnd = formatInputDate(endDateObj);
+				onSelect(formattedStart, formattedEnd);
+			} else {
+				return;
+			}
 			onClose();
 		}
 	};
@@ -416,9 +431,9 @@ export default function DateRangePickerModal({
 					</div>
 				</div>
 
-				<div className={styles.form}>
+				<div className={`${styles.form} ${singleMode ? styles.formSingle : ""}`}>
 					<div className={styles.inputField}>
-						<label className={styles.label}>From</label>
+						<label className={styles.label}>{singleMode ? "Date" : "From"}</label>
 						<div className={styles.inputArea}>
 							<DateIcon width={20} height={20} />
 							<input
@@ -432,20 +447,22 @@ export default function DateRangePickerModal({
 						</div>
 					</div>
 
-					<div className={styles.inputField}>
-						<label className={styles.label}>To</label>
-						<div className={styles.inputArea}>
-							<DateIcon width={20} height={20} />
-							<input
-								type="text"
-								value={toInput}
-								onChange={(e) => setToInput(e.target.value)}
-								onBlur={onToInputBlur}
-								placeholder="DD/MM/YYYY"
-								className={styles.input}
-							/>
+					{!singleMode && (
+						<div className={styles.inputField}>
+							<label className={styles.label}>To</label>
+							<div className={styles.inputArea}>
+								<DateIcon width={20} height={20} />
+								<input
+									type="text"
+									value={toInput}
+									onChange={(e) => setToInput(e.target.value)}
+									onBlur={onToInputBlur}
+									placeholder="DD/MM/YYYY"
+									className={styles.input}
+								/>
+							</div>
 						</div>
-					</div>
+					)}
 				</div>
 
 				<button

@@ -17,7 +17,6 @@
     height: 48px;
     min-width: fit-content;
     background: var(--bg-pale);
-    padding: 0 0 0 0;
     transition: background-color var(--transition-1), color var(--transition-1);
 }
 
@@ -50,7 +49,7 @@
 }
 
 .artist {
-    width: 17%;
+    width: 17.5%;
     min-width: 116px;
 }
 
@@ -60,7 +59,7 @@
 }
 
 .type {
-    width: 16%;
+    width: 15%;
     min-width: 110px;
 }
 

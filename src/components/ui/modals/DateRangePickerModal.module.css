@@ -178,6 +178,16 @@
 	background: transparent;
 }
 
+.datePast {
+	color: var(--text-secondary);
+	opacity: 0.4;
+	cursor: not-allowed;
+}
+
+.datePast:hover {
+	background: transparent;
+}
+
 .form {
 	display: flex;
 	flex-direction: row;
@@ -186,6 +196,18 @@
 	gap: 20px;
 	width: 350px;
 	height: 78px;
+}
+
+.formSingle .inputField {
+	width: 100%;
+}
+
+.formSingle .inputArea {
+	width: 100%;
+}
+
+.formSingle .label {
+	width: 100%;
 }
 
 .inputField {

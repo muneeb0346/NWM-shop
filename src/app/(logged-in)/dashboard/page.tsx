@@ -17,6 +17,8 @@ import TopArtistsPieChart from "@components/charts/TopArtistsPieChart";
 import { BookingInsightsProvider } from "@contexts/BookingInsightsContext";
 import { TopArtistsProvider } from "@contexts/TopArtistsContext";
 import NewBookingsFeed from "@components/dashboards/NewBookingsFeed";
+import UpcomingAppointments from "@components/dashboards/UpcomingAppointments";
+import { UpcomingAppointmentsProvider } from "@contexts/UpcomingAppointmentsContext";
 
 export default function DashboardPage() {
     return (
@@ -51,6 +53,9 @@ export default function DashboardPage() {
                 </div>
                 <div className={styles["content-right"]}>
                     <NewBookingsFeed />
+                    <UpcomingAppointmentsProvider>
+                        <UpcomingAppointments />
+                    </UpcomingAppointmentsProvider>
                 </div>
             </div>
         </section>

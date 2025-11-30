@@ -3,31 +3,41 @@
 import { useState } from "react";
 import styles from "./DateRangeButton.module.css";
 import DateRangePickerModal from "@modals/DateRangePickerModal";
+import SingleDatePickerModal from "@modals/SingleDatePickerModal";
 import ChevronDownIcon from "@components/ui/icons/ChevronDownIcon";
 
+type Mode = "range" | "single";
+
 interface DateRangeButtonProps {
+	mode?: Mode;
 	placeholder?: string;
 	value?: string;
 	onChange?: (startDate: string, endDate: string) => void;
+	onChangeSingle?: (date: string) => void;
 	className?: string;
 	initialStartDate?: string;
 	initialEndDate?: string;
+	initialDate?: string;
 	minDate?: Date;
 	maxDate?: Date;
 }
 
 export default function DateRangeButton({
+	mode = "range",
 	placeholder = "December 2024",
 	value,
 	onChange,
+	onChangeSingle,
 	className,
 	initialStartDate,
 	initialEndDate,
+	initialDate,
 	minDate,
 	maxDate,
 }: DateRangeButtonProps) {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [selectedRange, setSelectedRange] = useState(value || "");
+	const [selectedDate, setSelectedDate] = useState(initialDate || "");
 
 	const monthNames = [
 		"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
@@ -78,6 +88,13 @@ export default function DateRangeButton({
 		if (onChange) onChange(startDate, endDate);
 	};
 
+	const handleSelectSingle = (date: string) => {
+		const d = parse(date);
+		const display = d ? `${String(d.getDate()).padStart(2, "0")} ${monthNames[d.getMonth()]} ${d.getFullYear()}` : date;
+		setSelectedDate(display);
+		if (onChangeSingle) onChangeSingle(date);
+	};
+
 	return (
 		<>
 			<div className={`${styles.wrapper} ${className || ""}`}>
@@ -87,7 +104,7 @@ export default function DateRangeButton({
 					onClick={() => setIsModalOpen(true)}
 				>
 					<span className={styles.text}>
-						{selectedRange || placeholder}
+						{mode === "single" ? (selectedDate || placeholder) : (selectedRange || placeholder)}
 					</span>
 				</button>
 				<ChevronDownIcon
@@ -97,15 +114,25 @@ export default function DateRangeButton({
 				/>
 			</div>
 
-			<DateRangePickerModal
-				isOpen={isModalOpen}
-				onClose={() => setIsModalOpen(false)}
-				onSelect={handleSelect}
-				initialStartDate={initialStartDate}
-				initialEndDate={initialEndDate}
-				minDate={minDate}
-				maxDate={maxDate}
-			/>
+			{mode === "single" ? (
+				<SingleDatePickerModal
+					isOpen={isModalOpen}
+					onClose={() => setIsModalOpen(false)}
+					onSelect={handleSelectSingle}
+					initialDate={initialDate}
+					futureYears={2}
+				/>
+			) : (
+				<DateRangePickerModal
+					isOpen={isModalOpen}
+					onClose={() => setIsModalOpen(false)}
+					onSelect={(start, end) => end && handleSelect(start, end)}
+					initialStartDate={initialStartDate}
+					initialEndDate={initialEndDate}
+					minDate={minDate}
+					maxDate={maxDate}
+				/>
+			)}
 		</>
 	);
 }

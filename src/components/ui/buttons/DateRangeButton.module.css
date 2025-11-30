@@ -35,3 +35,10 @@
 	width: 16px;
 	aspect-ratio: 1 / 1;
 }
+
+.hiddenDateInput {
+	position: absolute;
+	inset: 0;
+	opacity: 0;
+	pointer-events: none;
+}
