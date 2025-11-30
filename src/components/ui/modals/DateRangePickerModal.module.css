@@ -142,6 +142,7 @@
 
 .date:hover {
 	background: var(--bg-primary-pale);
+	color: var(--text-primary)
 }
 
 .dateStart {
@@ -279,13 +280,4 @@
 	font-size: 16px;
 	line-height: 120%;
 	color: var(--text-white);
-	transition: opacity 0.2s;
-}
-
-.selectButton:hover {
-	opacity: 0.9;
-}
-
-.selectButton:active {
-	opacity: 0.8;
 }

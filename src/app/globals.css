@@ -189,6 +189,12 @@ body {
     line-height: 133%;
 }
 
+.text-10-700-140 {
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 140%;
+}
+
 .text-10-500-140 {
     font-weight: 500;
     font-size: 10px;

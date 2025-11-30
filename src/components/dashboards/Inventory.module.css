@@ -1,0 +1,40 @@
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.artist {
+    width: 18%;
+    min-width: 140px;
+}
+
+.item {
+    width: 25%;
+    min-width: 188px;
+}
+
+.quantity {
+    width: 10%;
+    min-width: 79px;
+}
+
+.threshold {
+    width: 11%;
+    min-width: 86px;
+}
+
+.vendor {
+    width: 14%;
+    min-width: 107px;
+}
+
+.last-used {
+    width: 12%;
+    min-width: 89px;
+}
+
+.status {
+    width: 10%;
+    min-width: 79px;
+}
