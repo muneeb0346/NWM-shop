@@ -19,6 +19,7 @@
     height: 48px;
     background: var(--bg-pale);
     transition: background-color var(--transition-1), color var(--transition-1);
+    padding-right: 12px; /* same as cell padding to align with header */
 }
 
 .body {
@@ -33,6 +34,7 @@
     min-height: 58px;
     flex-shrink: 0;
     transition: background-color var(--transition-1);
+    padding-right: 12px; /* same as cell padding to align with header */
 }
 
 .table-row:hover {
