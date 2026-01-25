@@ -45,54 +45,56 @@ export default function NewBookingsFeed() {
                 />
             </div>
             <div className={TableStyles.table}>
-                <div className={TableStyles["table-header-row"]}>
-                    <div className={`${TableStyles.cell} ${styles.artist}`}><span className="text-14-600-130">Artist Name</span></div>
-                    <div className={`${TableStyles.cell} ${styles.client}`}><span className="text-14-600-130">Client Name</span></div>
-                    <div className={`${TableStyles.cell} ${styles.type}`}><span className="text-14-600-130">Booking Type</span></div>
-                    <div className={`${TableStyles.cell} ${styles.style}`}><span className="text-14-600-130">Style</span></div>
-                    <div className={`${TableStyles.cell} ${styles.datetime}`}><span className="text-14-600-130">Date & Time</span></div>
-                    <div className={`${TableStyles.cell} ${styles.status}`}><span className="text-14-600-130">Status</span></div>
-                </div>
-                <div className={TableStyles.body}>
-                    <AnimatePresence mode="popLayout">
-                        {bookingsToRender
-                            .filter(booking => booking.isVisible)
-                            .map((booking) => (
-                                <motion.div
-                                    key={`${booking.artistName}-${booking.clientName}-${booking.date}`}
-                                    className={TableStyles["table-row"]}
-                                    layout
-                                    initial={{ opacity: 0, height: 0 }}
-                                    animate={{ opacity: 1, height: "auto" }}
-                                    exit={{ opacity: 0, height: 0 }}
-                                    transition={{
-                                        layout: { duration: 0.3, ease: "easeOut" },
-                                        opacity: { duration: 0.3, ease: "easeOut" },
-                                        height: { duration: 0.3, ease: "easeOut" }
-                                    }}
-                                >
-                                    <div className={`${TableStyles.cell} ${styles.artist}`}>
-                                        <Image src={booking.artistAvatar} alt={booking.artistName} width={24} height={24} className={TableStyles.avatar} />
-                                        <span className="text-12-500-140">{booking.artistName}</span>
-                                    </div>
-                                    <div className={`${TableStyles.cell} ${styles.client}`}>
-                                        <span className="text-12-500-140">{booking.clientName}</span>
-                                    </div>
-                                    <div className={`${TableStyles.cell} ${styles.type}`}>
-                                        <span className="text-12-400-140">{booking.bookingType}</span>
-                                    </div>
-                                    <div className={`${TableStyles.cell} ${styles.style}`}>
-                                        <span className="text-12-400-140">{booking.style}</span>
-                                    </div>
-                                    <div className={`${TableStyles.cell} ${styles.datetime}`}>
-                                        <div className={`text-12-400-140 ${styles["date-time"]}`}>{booking.date}<br />{booking.time}</div>
-                                    </div>
-                                    <div className={`${TableStyles.cell} ${styles.status}`}>
-                                        <StatusBadge variant={booking.status} text={booking.statusText} />
-                                    </div>
-                                </motion.div>
-                            ))}
-                    </AnimatePresence>
+                <div className={TableStyles["table-content-wrapper"]}>
+                    <div className={TableStyles["table-header-row"]}>
+                        <div className={`${TableStyles.cell} ${styles.artist}`}><span className="text-14-600-130">Artist Name</span></div>
+                        <div className={`${TableStyles.cell} ${styles.client}`}><span className="text-14-600-130">Client Name</span></div>
+                        <div className={`${TableStyles.cell} ${styles.type}`}><span className="text-14-600-130">Booking Type</span></div>
+                        <div className={`${TableStyles.cell} ${styles.style}`}><span className="text-14-600-130">Style</span></div>
+                        <div className={`${TableStyles.cell} ${styles.datetime}`}><span className="text-14-600-130">Date & Time</span></div>
+                        <div className={`${TableStyles.cell} ${styles.status}`}><span className="text-14-600-130">Status</span></div>
+                    </div>
+                    <div className={TableStyles.body}>
+                        <AnimatePresence mode="popLayout">
+                            {bookingsToRender
+                                .filter(booking => booking.isVisible)
+                                .map((booking) => (
+                                    <motion.div
+                                        key={`${booking.artistName}-${booking.clientName}-${booking.date}`}
+                                        className={TableStyles["table-row"]}
+                                        layout
+                                        initial={{ opacity: 0, height: 0 }}
+                                        animate={{ opacity: 1, height: "auto" }}
+                                        exit={{ opacity: 0, height: 0 }}
+                                        transition={{
+                                            layout: { duration: 0.3, ease: "easeOut" },
+                                            opacity: { duration: 0.3, ease: "easeOut" },
+                                            height: { duration: 0.3, ease: "easeOut" }
+                                        }}
+                                    >
+                                        <div className={`${TableStyles.cell} ${styles.artist}`}>
+                                            <Image src={booking.artistAvatar} alt={booking.artistName} width={24} height={24} className={TableStyles.avatar} />
+                                            <span className="text-12-500-140">{booking.artistName}</span>
+                                        </div>
+                                        <div className={`${TableStyles.cell} ${styles.client}`}>
+                                            <span className="text-12-500-140">{booking.clientName}</span>
+                                        </div>
+                                        <div className={`${TableStyles.cell} ${styles.type}`}>
+                                            <span className="text-12-400-140">{booking.bookingType}</span>
+                                        </div>
+                                        <div className={`${TableStyles.cell} ${styles.style}`}>
+                                            <span className="text-12-400-140">{booking.style}</span>
+                                        </div>
+                                        <div className={`${TableStyles.cell} ${styles.datetime}`}>
+                                            <div className={`text-12-400-140 ${styles["date-time"]}`}>{booking.date}<br />{booking.time}</div>
+                                        </div>
+                                        <div className={`${TableStyles.cell} ${styles.status}`}>
+                                            <StatusBadge variant={booking.status} text={booking.statusText} />
+                                        </div>
+                                    </motion.div>
+                                ))}
+                        </AnimatePresence>
+                    </div>
                 </div>
             </div>
         </div>
