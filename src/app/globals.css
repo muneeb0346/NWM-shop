@@ -207,6 +207,11 @@ body {
     line-height: 120%;
 }
 
+.icon {
+    aspect-ratio: 1 / 1;
+    height: auto;
+}
+
 /* Animations */
 @keyframes fadeIn {
     from {
@@ -280,5 +285,9 @@ body {
     .text-10-500-140,
     .text-10-400-120 {
         font-size: 8px;
+    }
+
+    .icon {
+        width: 18px;
     }
 }

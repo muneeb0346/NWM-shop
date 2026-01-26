@@ -16,6 +16,20 @@
     position: relative;
 }
 
+.unread-dot {
+    width: 7px;
+    aspect-ratio: 1 / 1;
+    height: auto;
+    border-radius: 50%;
+    background: var(--button-danger-hover);
+}
+
+.on-bell {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+
 .popup {
     color: var(--text-primary);
     display: flex;
@@ -59,6 +73,10 @@
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
+    gap: 12px;
+    padding-top: 12px;
+    overflow: auto;
+    scrollbar-width: none;
 }
 
 .notification-item {
@@ -85,20 +103,6 @@
     gap: 4px;
 }
 
-.unread-dot {
-    width: 7px;
-    aspect-ratio: 1 / 1;
-    height: auto;
-    border-radius: 50%;
-    background: var(--button-danger-hover);
-}
-
-.on-bell {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-}
-
 .message,
 .timeago {
     color: var(--text-secondary);
@@ -108,4 +112,48 @@
     padding: 12px 0;
     text-align: center;
     color: var(--text-secondary);
+}
+
+/* Tablet */
+@media (max-width: 1200px) {
+    .button {
+        width: 36px;
+        border-radius: 8px;
+    }
+
+    .unread-dot {
+        width: 5px;
+    }
+
+    .on-bell {
+        top: 6px;
+        right: 6px;
+    }
+
+    .popup {
+        width: 320px;
+        height: 250px;
+        padding: 12px;
+        border-radius: 8px;
+        top: 54px;
+        right: -20px;
+    }
+
+    .notifications-list {
+        gap: 8px;
+        padding-top: 8px;
+    }
+
+    .notification-item {
+        gap: 4px;
+        height: 50px;
+    }
+
+    .content {
+        gap: 2px;
+    }
+
+    .empty {
+        padding: 8px 0;
+    }
 }
