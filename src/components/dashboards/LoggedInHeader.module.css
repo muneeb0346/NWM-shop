@@ -3,7 +3,7 @@
     justify-content: flex-end;
     align-items: center;
     padding-right: 24px;
-    gap: 16px;
+    gap: 24px;
     height: var(--li-header-height);
     background: var(--bg-white);
     z-index: 10;
@@ -17,5 +17,16 @@
     width: 1px;
     height: 32px;
     background-color: var(--stroke-pale);
-    margin: 0 8px;
+}
+
+/* Tablet */
+@media (max-width: 1200px) {
+    .header {
+        padding-right: var(--page-padding);
+        gap: 16px;
+    }
+
+    .separator-vertical {
+        height: 24px;
+    }
 }

@@ -29,3 +29,20 @@
 .email {
     color: var(--text-sheen);
 }
+
+/* Tablet */
+@media (max-width: 1200px) {
+    .wrapper {
+        min-width: 180px;
+        gap: 8px;
+    }
+
+    .pp {
+        width: 36px;
+    }
+
+    .info {
+        padding-right: 8px;
+        gap: 2px;
+    }
+}

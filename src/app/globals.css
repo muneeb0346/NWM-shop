@@ -227,3 +227,58 @@ body {
         opacity: 0;
     }
 }
+
+/* Tablet */
+@media (max-width: 1200px) {
+    :root {
+        --sidebar-width: 75px;
+        --sidebar-expanded-width: 250px;
+        --li-header-height: 60px;
+        --page-padding: 16px;
+        --page-gap: 16px;
+    }
+
+    body {
+        font-size: 14px;
+    }
+
+    /* Typography */
+    .head-40-600-120 {
+        font-size: 32px;
+    }
+
+    .head-20-600-130 {
+        font-size: 18px;
+    }
+
+    .text-18-500-130 {
+        font-size: 16px;
+    }
+
+    .head-16-700-131,
+    .text-16-500-131 {
+        font-size: 14px;
+    }
+
+    .text-14-600-120,
+    .text-14-500-150,
+    .text-14-500-136,
+    .text-14-600-130,
+    .text-14-400-130 {
+        font-size: 12px;
+    }
+
+    .text-12-600-140,
+    .text-12-600-120,
+    .text-12-500-140,
+    .text-12-400-140,
+    .text-12-400-133 {
+        font-size: 10px;
+    }
+
+    .text-10-700-140,
+    .text-10-500-140,
+    .text-10-400-120 {
+        font-size: 8px;
+    }
+}
