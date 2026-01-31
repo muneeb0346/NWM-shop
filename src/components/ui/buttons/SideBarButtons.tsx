@@ -32,13 +32,21 @@ export default function SideBarButton({
     activeBgColor = "var(--bg-primary-normal)"
 }: SideBarButtonProps) {
     const pathname = usePathname();
-    const { isOpen } = useSidebar();
+    const { isOpen, setIsOpen } = useSidebar();
     const isActive = pathname === href;
+
+    const handleClick = () => {
+        setIsOpen(false);
+    };
 
     return (
         <Link
             href={href}
             className={`${styles.button} ${!isOpen ? styles.collapsed : ""}`}
+            onClick={(e) => {
+                e.stopPropagation();
+                handleClick();
+            }}
         >
             <Icon
                 iconColor={isActive ? activeIconColor : iconColor}

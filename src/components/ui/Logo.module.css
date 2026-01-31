@@ -32,3 +32,14 @@
 .collapsed .logo {
     width: 100%;
 }
+
+/* Tablet */
+@media (max-width: 1200px) {
+    .link {
+        width: 150px;
+    }
+
+    .collapsed {
+        width: 47px;
+    }
+}

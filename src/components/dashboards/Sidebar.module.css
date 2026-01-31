@@ -51,3 +51,25 @@
 .li {
     width: 100%;
 }
+
+/* Tablet */
+@media (max-width: 1200px) {
+    .sidebar.active {
+        border-radius: 0px 15px 15px 0px;
+    }
+
+    .nav {
+        padding: 14px;
+        gap: 20px;
+    }
+
+    .gap-16px {
+        height: 12px;
+    }
+
+    .ul {
+        padding: 3px;
+        gap: 10px;
+        border-radius: 15px;
+    }
+}

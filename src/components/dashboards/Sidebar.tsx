@@ -21,10 +21,17 @@ export default function Sidebar() {
     const { isOpen, setIsOpen } = useSidebar();
 
     return (
-        <div className={`overlay-background ${isOpen ? "active" : ""}`}>
+        <div
+            className={`overlay-background ${isOpen ? "active" : ""}`}
+            onClick={() => setIsOpen(false)}
+        >
             <aside
                 aria-label="Sidebar"
                 className={`${styles.sidebar} ${isOpen ? styles.active : ""}`}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    setIsOpen(!isOpen);
+                }}
                 onMouseEnter={() => setIsOpen(true)}
                 onMouseLeave={() => setIsOpen(false)}
             >
