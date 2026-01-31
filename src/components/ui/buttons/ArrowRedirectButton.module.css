@@ -3,7 +3,8 @@
     align-items: center;
     justify-content: center;
     width: 36px;
-    height: 36px;
+    aspect-ratio: 1 / 1;
+    height: auto;
     background: var(--bg-white);
     border: 1px solid var(--stroke-pale);
     border-radius: 12px;
@@ -13,4 +14,20 @@
 
 .button:hover {
     background: var(--bg-pale);
+}
+
+/* Tablet */
+@media (max-width: 1200px) {
+    .button {
+        width: 32px;
+        border-radius: 10px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .button {
+        width: 28px;
+        border-radius: 8px;
+    }
 }

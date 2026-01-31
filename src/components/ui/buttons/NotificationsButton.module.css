@@ -118,7 +118,7 @@
 @media (max-width: 1200px) {
     .button {
         width: 36px;
-        border-radius: 8px;
+        border-radius: 10px;
     }
 
     .unread-dot {
@@ -155,5 +155,13 @@
 
     .empty {
         padding: 8px 0;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .button {
+        width: 32px;
+        border-radius: 8px;
     }
 }

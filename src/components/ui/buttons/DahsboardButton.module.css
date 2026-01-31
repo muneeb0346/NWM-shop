@@ -19,3 +19,31 @@
 .icon-theme {
     color: var(--bg-white);
 }
+
+/* Tablet */
+@media (max-width: 1200px) {
+    .button {
+        padding: 6px 10px;
+        gap: 6px;
+        border-radius: 10px;
+        height: 36px;
+    }
+
+    .theme {
+        padding: 6px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .button {
+        padding: 4px 8px;
+        gap: 4px;
+        border-radius: 8px;
+        height: 28px;
+    }
+
+    .theme {
+        padding: 4px;
+    }
+}

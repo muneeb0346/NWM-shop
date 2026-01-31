@@ -11,3 +11,17 @@
     overflow: hidden;
     flex: none;
 }
+
+/* Tablet */
+@media (max-width: 1200px) {
+    .button {
+        padding: 3px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .button {
+        padding: 2px;
+    }
+}
