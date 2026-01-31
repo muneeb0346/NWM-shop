@@ -207,11 +207,6 @@ body {
     line-height: 120%;
 }
 
-.icon {
-    aspect-ratio: 1 / 1;
-    height: auto;
-}
-
 /* Animations */
 @keyframes fadeIn {
     from {
@@ -236,7 +231,7 @@ body {
 /* Tablet */
 @media (max-width: 1200px) {
     :root {
-        --sidebar-width: 75px;
+        --sidebar-width: 70px;
         --sidebar-expanded-width: 250px;
         --li-header-height: 60px;
         --page-padding: 16px;
@@ -285,9 +280,5 @@ body {
     .text-10-500-140,
     .text-10-400-120 {
         font-size: 8px;
-    }
-
-    .icon {
-        width: 18px;
     }
 }

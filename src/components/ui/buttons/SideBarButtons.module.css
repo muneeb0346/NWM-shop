@@ -10,10 +10,6 @@
     width: 100%;
 }
 
-.icon {
-    flex-shrink: 0;
-}
-
 .text {
     white-space: nowrap;
 }

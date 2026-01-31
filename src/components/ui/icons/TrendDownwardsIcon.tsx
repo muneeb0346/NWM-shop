@@ -13,7 +13,7 @@ export default function TrendDownwardsIcon({
     iconColor = "var(--icon-warning-bold)",
     width = 16,
     height = 16,
-    className,
+    className = "",
     style
 }: TrendDownwardsIconProps) {
     return (
@@ -23,7 +23,7 @@ export default function TrendDownwardsIcon({
             viewBox="0 0 16 16"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className={className}
+            className={`${styles.icon} ${styles["icon-16"]} ${className}`}
             style={style}
         >
             <path

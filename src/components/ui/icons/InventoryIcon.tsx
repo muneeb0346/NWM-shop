@@ -15,7 +15,7 @@ export default function InventoryIcon({
     bgColor = "transparent",
     width = 44,
     height = 44,
-    className,
+    className = "",
     style
 }: InventoryIconProps) {
     return (
@@ -25,7 +25,7 @@ export default function InventoryIcon({
             viewBox="0 0 44 44"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className={className}
+            className={`${styles.icon} ${styles["icon-44"]} ${className}`}
             style={style}
         >
             <rect

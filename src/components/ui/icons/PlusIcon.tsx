@@ -13,7 +13,7 @@ export default function PlusIcon({
     iconColor = "var(--text-primary)",
     width = 20,
     height = 20,
-    className,
+    className = "",
     style
 }: PlusIconProps) {
     return (
@@ -23,7 +23,7 @@ export default function PlusIcon({
             viewBox="0 0 20 20"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className={className}
+            className={`${styles.icon} ${styles["icon-20"]} ${className}`}
             style={style}
         >
             <path

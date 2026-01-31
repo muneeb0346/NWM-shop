@@ -43,7 +43,6 @@ export default function SideBarButton({
             <Icon
                 iconColor={isActive ? activeIconColor : iconColor}
                 bgColor={isActive ? activeBgColor : bgColor}
-                className={styles.icon}
             />
             {isOpen && (
                 <span className={`text-18-500-130 ${styles.text}`}>{text}</span>

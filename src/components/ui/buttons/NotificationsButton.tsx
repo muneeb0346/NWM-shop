@@ -88,7 +88,7 @@ export default function NotificationsButton() {
                 aria-expanded={isOpen}
                 aria-controls={popupId}
             >
-                <BellIcon className="icon" />
+                <BellIcon />
                 {unreadCount > 0 && (
                     <span className={`${styles["unread-dot"]} ${styles["on-bell"]}`} />
                 )}

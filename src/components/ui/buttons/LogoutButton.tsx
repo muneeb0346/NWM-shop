@@ -16,7 +16,7 @@ export default function LogoutButton({ className }: LogoutButtonProps) {
             className={`${styles.button} ${className}`}
             title={!isOpen ? "Logout" : ""}
         >
-            <LogoutIcon className={styles.icon} />
+            <LogoutIcon />
             {isOpen && (
                 <span className="text-18-500-130">Logout</span>
             )}

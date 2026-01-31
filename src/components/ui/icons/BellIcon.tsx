@@ -13,7 +13,7 @@ export default function BellIcon({
     iconColor = "var(--text-primary)",
     width = 24,
     height = 24,
-    className,
+    className = "",
     style
 }: BellIconProps) {
     return (
@@ -23,7 +23,7 @@ export default function BellIcon({
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className={className}
+            className={`${styles.icon} ${styles["icon-24"]} ${className}`}
             style={style}
         >
             <path
