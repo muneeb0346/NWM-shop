@@ -31,7 +31,7 @@
 .listWrapper {
     background: var(--bg-white);
     border: 1px solid var(--stroke-pale);
-    border-radius: 12px;
+    border-radius: var(--radius-12);
     padding: 16px;
     display: flex;
     flex-direction: column;
@@ -45,7 +45,7 @@
     padding: 12px;
     gap: 24px;
     background: var(--bg-pale);
-    border-radius: 12px;
+    border-radius: var(--radius-12);
     transition: background-color var(--transition-1);
 }
 

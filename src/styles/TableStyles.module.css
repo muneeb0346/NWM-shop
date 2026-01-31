@@ -2,7 +2,7 @@
     width: 100%;
     background: var(--bg-white);
     border: 1px solid var(--stroke-pale);
-    border-radius: 12px;
+    border-radius: var(--radius-12);
     transition: background-color var(--transition-1), border-color var(--transition-1);
     overflow: clip;
     overflow-x: auto;

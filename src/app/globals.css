@@ -51,6 +51,7 @@
     --li-header-height: 80px;
     --page-padding: 20px;
     --page-gap: 20px;
+    --radius-12: 12px;
     --focus-outline: 2px solid var(--bg-primary-normal);
     --focus-outline-offset: 2px;
     --transition-1: 0.3s ease-out;
@@ -236,6 +237,7 @@ body {
         --li-header-height: 60px;
         --page-padding: 16px;
         --page-gap: 16px;
+        --radius-12: 10px;
     }
 
     body {
@@ -291,6 +293,7 @@ body {
         --li-header-height: 50px;
         --page-padding: 12px;
         --page-gap: 12px;
+        --radius-12: 8px;
     }
 
     body {

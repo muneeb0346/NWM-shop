@@ -7,7 +7,7 @@
     height: auto;
     background: var(--bg-white);
     border: 1px solid var(--stroke-pale);
-    border-radius: 12px;
+    border-radius: var(--radius-12);
     cursor: pointer;
     transition: background-color var(--transition-1), border-color var(--transition-1);
 }
@@ -20,7 +20,6 @@
 @media (max-width: 1200px) {
     .button {
         width: 32px;
-        border-radius: 10px;
     }
 }
 
@@ -28,6 +27,5 @@
 @media (max-width: 768px) {
     .button {
         width: 28px;
-        border-radius: 8px;
     }
 }

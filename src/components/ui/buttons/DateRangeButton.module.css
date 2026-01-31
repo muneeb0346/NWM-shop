@@ -8,7 +8,7 @@
 	appearance: none;
 	background: var(--bg-white);
 	border: 1px solid var(--stroke-pale);
-	border-radius: 12px;
+	border-radius: var(--radius-12);
 	padding: 11px 36px 11px 12px;
 	color: var(--text-primary);
 	cursor: pointer;
@@ -44,7 +44,6 @@
 /* Tablet */
 @media (max-width: 1200px) {
 	.button {
-		border-radius: 10px;
 		padding: 9px 30px 9px 10px;
 	}
 
@@ -56,7 +55,6 @@
 /* Mobile */
 @media (max-width: 768px) {
 	.button {
-		border-radius: 8px;
 		padding: 8px 24px 8px 8px;
 	}
 

@@ -136,7 +136,7 @@
 	background: transparent;
 	border: none;
 	cursor: pointer;
-	border-radius: 12px;
+	border-radius: var(--radius-12);
 	transition: background-color var(--transition-1);
 }
 
@@ -147,7 +147,7 @@
 
 .dateStart {
 	background: var(--bg-primary-normal);
-	border-radius: 12px;
+	border-radius: var(--radius-12);
 	color: var(--text-white);
 }
 
@@ -159,7 +159,7 @@
 
 .dateMiddle {
 	background: var(--bg-primary-pale);
-	border-radius: 12px;
+	border-radius: var(--radius-12);
 }
 
 .date:focus-visible,
@@ -243,7 +243,7 @@
 	height: 48px;
 	background: var(--bg-white);
 	border: 1px solid var(--stroke-pale);
-	border-radius: 12px;
+	border-radius: var(--radius-12);
 }
 
 .input {
@@ -271,7 +271,7 @@
 	width: 350px;
 	height: 48px;
 	background: var(--bg-primary-normal);
-	border-radius: 12px;
+	border-radius: var(--radius-12);
 	border: none;
 	cursor: pointer;
 	font-family: "Urbanist";

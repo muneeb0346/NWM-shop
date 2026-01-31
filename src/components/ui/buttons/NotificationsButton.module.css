@@ -11,7 +11,7 @@
     aspect-ratio: 1 / 1;
     height: auto;
     border: 1px solid var(--stroke-pale);
-    border-radius: 12px;
+    border-radius: var(--radius-12);
     flex: none;
     position: relative;
 }
@@ -41,7 +41,7 @@
     padding: 16px;
     background: var(--bg-white);
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: var(--radius-12);
     z-index: 11;
     position: absolute;
     top: 72px;
@@ -118,7 +118,6 @@
 @media (max-width: 1200px) {
     .button {
         width: 36px;
-        border-radius: 10px;
     }
 
     .unread-dot {
@@ -134,7 +133,6 @@
         width: 320px;
         height: 250px;
         padding: 12px;
-        border-radius: 8px;
         top: 54px;
         right: -20px;
     }
@@ -162,6 +160,5 @@
 @media (max-width: 768px) {
     .button {
         width: 32px;
-        border-radius: 8px;
     }
 }
