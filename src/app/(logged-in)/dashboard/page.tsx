@@ -29,7 +29,7 @@ export default function DashboardPage() {
             <div className={styles["page-header"]}>
                 <div className={styles["header-content"]}>
                     <h1 className="head-40-600-120">Dashboard Overview</h1>
-                    <p className="text-16-500-130">Get a quick snapshot of your shop’s performance — bookings, payments — all in one place.</p>
+                    <p className="text-16-500-131">Get a quick snapshot of your shop’s performance — bookings, payments — all in one place.</p>
                 </div>
                 <div className={styles["header-menu"]}>
                     <DashboardButton icon={PlusIcon} text="Invite Staff" />

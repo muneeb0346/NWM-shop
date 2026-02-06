@@ -24,3 +24,19 @@
     border-radius: 100px;
     color: var(--text-primary-bold);
 }
+
+/* Tablet */
+@media (max-width: 1200px) {
+    .trend-tag {
+        padding: 1.5px 3px;
+        gap: 3px;
+    }
+}
+
+/* Mobile  */
+@media (max-width: 768px) {
+    .trend-tag {
+        padding: 1px 3px;
+        gap: 2px;
+    }
+}
